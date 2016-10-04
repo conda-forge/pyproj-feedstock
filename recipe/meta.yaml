@@ -1,33 +1,35 @@
+{% set version = "1.9.5.1" %}
+
 package:
-    name: pyproj
-    version: "1.9.5.1"
+  name: pyproj
+  version: {{ version }}
 
 source:
-    fn: pyproj-1.9.5.1.tar.gz
-    url: https://pypi.python.org/packages/source/p/pyproj/pyproj-1.9.5.1.tar.gz
-    md5: 027345e3c033fa400e0e64a1c80d34c9
+  fn: pyproj-{{ version }}.tar.gz
+  url: https://github.com/jswhit/pyproj/archive/v{{ version }}rel.tar.gz
+  sha256: 0e19f02ebbf4c253813142ffe06e12489f3861877c3fab75b6c769c1a1960cac
 
 build:
-    number: 0
-    script: python setup.py install --single-version-externally-managed --record=record.txt
+  number: 0
+  script: python setup.py install --single-version-externally-managed --record=record.txt
 
 requirements:
-    build:
-        - python
-        - setuptools
-    run:
-        - python
-        - numpy
+  build:
+    - python
+    - setuptools
+  run:
+    - python
+    - numpy
 
 test:
-    imports:
-        - pyproj
+  imports:
+    - pyproj
 
 about:
-    home: https://github.com/jswhit/pyproj
-    license: OSI
-    summary: 'Python interface to PROJ.4 library'
+  home: https://github.com/jswhit/pyproj
+  license: OSI
+  summary: 'Python interface to PROJ.4 library'
 
 extra:
-    recipe-maintainers:
-        - ocefpaf
+  recipe-maintainers:
+    - ocefpaf

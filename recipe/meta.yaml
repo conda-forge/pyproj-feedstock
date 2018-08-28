@@ -5,18 +5,19 @@ package:
   version: {{ version }}
 
 source:
-  fn: pyproj-{{ version }}.tar.gz
   url: https://github.com/jswhit/pyproj/archive/v{{ version }}rel.tar.gz
   sha256: 0e19f02ebbf4c253813142ffe06e12489f3861877c3fab75b6c769c1a1960cac
 
 build:
-  number: 0
-  script: python setup.py install --single-version-externally-managed --record=record.txt
+  number: 1
+  script: "{{ PYTHON }} -m pip install . --no-deps --ignore-installed --no-cache-dir -vvv"
 
 requirements:
   build:
+    - {{ compiler('c') }}
+  host:
     - python
-    - setuptools
+    - pip
   run:
     - python
     - numpy
@@ -28,6 +29,7 @@ test:
 about:
   home: https://github.com/jswhit/pyproj
   license: OSI
+  license_file: LICENSE
   summary: 'Python interface to PROJ.4 library'
 
 extra:

@@ -10,7 +10,15 @@ source:
 
 build:
   number: 1
-  script: "{{ PYTHON }} -m pip install . --no-deps --ignore-installed --no-cache-dir -vvv"
+  script:
+    - del _proj.c  # [win]
+    - set "PROJ_DIR=%PREFIX%"  # [win]
+    - set "PROJ_LIBDIR=%LIBRARY_LIB%"  # [win]
+    - set "PROJ_INCDIR=%LIBRARY_INC%"  # [win]
+    - rm -d _proj.c  # [not win]
+    - export PROJ_DIR="${PREFIX}"  # [not win]
+    - cythonize -a -i _proj.pyx
+    - "{{ PYTHON }} -m pip install . --no-deps --ignore-installed --no-cache-dir -vvv"
 
 requirements:
   build:
@@ -18,6 +26,8 @@ requirements:
   host:
     - python
     - pip
+    - cython
+    - proj4
   run:
     - python
     - numpy
@@ -34,4 +44,5 @@ about:
 
 extra:
   recipe-maintainers:
+    - mingwandroid
     - ocefpaf

@@ -1,0 +1,11 @@
+--- pyproj-1.9.5.1rel.orig/setup.py	2016-01-06 20:26:39.000000000 -0200
++++ pyproj-1.9.5.1rel/setup.py	2018-08-31 14:09:52.990151172 -0300
+@@ -24,7 +24,7 @@
+     runtime_library_dirs=libdirs,libraries=libraries)
+ 
+     # over-write default data directory.
+-    pyproj_datadir = os.path.join(os.path.join(proj_dir,'share'),'proj')
++    pyproj_datadir = os.environ['PROJ_LIB']
+     datadirfile = os.path.join('lib',os.path.join('pyproj','datadir.py'))
+     datadirfile_save = os.path.join('lib',os.path.join('pyproj','datadir.py.save'))
+     if not os.path.isfile(datadirfile_save):

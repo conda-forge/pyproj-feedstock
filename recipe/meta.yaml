@@ -9,7 +9,7 @@ source:
   sha256: 0e19f02ebbf4c253813142ffe06e12489f3861877c3fab75b6c769c1a1960cac
 
 build:
-  number: 1
+  number: 2
   script:
     - del _proj.c  # [win]
     - set "PROJ_DIR=%PREFIX%"  # [win]

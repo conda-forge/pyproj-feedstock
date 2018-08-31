@@ -8,13 +8,16 @@ source:
   url: https://github.com/jswhit/pyproj/archive/v{{ version }}rel.tar.gz
   sha256: 0e19f02ebbf4c253813142ffe06e12489f3861877c3fab75b6c769c1a1960cac
   patches:
-    - data_dir.patch
+    # This is current failing on Windows,
+    # for some reason it cannot find the PROJ_LIB variable
+    # even though it is defined in proj.4's the activation scripts.
+    - data_dir.patch  # [not win]
 
 build:
   number: 3
   script:
     - del _proj.c  # [win]
-    # - rmdir src  # [win]
+    - rmdir src  # [win]
     - set "PROJ_DIR=%PREFIX%"  # [win]
     - set "PROJ_LIBDIR=%LIBRARY_LIB%"  # [win]
     - set "PROJ_INCDIR=%LIBRARY_INC%"  # [win]

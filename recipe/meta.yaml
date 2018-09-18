@@ -11,10 +11,10 @@ source:
     # This is current failing on Windows,
     # for some reason it cannot find the PROJ_LIB variable
     # even though it is defined in proj.4's the activation scripts.
-    - data_dir.patch  # [not win]
+    - data_dir.patch
 
 build:
-  number: 3
+  number: 4
   script:
     - del _proj.c  # [win]
     - rmdir src  # [win]

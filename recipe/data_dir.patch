@@ -13,7 +13,7 @@
          shutil.copyfile(datadirfile, datadirfile_save)
      f = open(datadirfile,'w')
 -    f.write('pyproj_datadir="%s"\n' % pyproj_datadir)
-+    f.write("import os; pyproj_datadir = os.environ['PROJ_LIB']")
++    f.write("import os; pyproj_datadir = os.environ.get('PROJ_LIB', '')")
      f.close()
  
      extensions = [pyprojext]

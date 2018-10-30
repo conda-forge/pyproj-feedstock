@@ -14,7 +14,7 @@ source:
     - data_dir.patch
 
 build:
-  number: 1005
+  number: 1006
   script:
     - del _proj.c  # [win]
     - rmdir src  # [win]
@@ -27,7 +27,7 @@ build:
     - export PROJ_LIBDIR="${PREFIX}/lib"  # [not win]
     - export PROJ_INCDIR="${PREFIX}/include"  # [not win]
     - cythonize -a -i _proj.pyx
-    - "{{ PYTHON }} -m pip install . --no-deps --ignore-installed --no-cache-dir -vvv"
+    - "{{ PYTHON }} -m pip install . --no-deps --ignore-installed -vvv"
 
 requirements:
   build:

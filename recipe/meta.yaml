@@ -1,20 +1,17 @@
-{% set version = "1.9.5.1" %}
+{% set version = "1.9.6" %}
 
 package:
   name: pyproj
   version: {{ version }}
 
 source:
-  url: https://github.com/jswhit/pyproj/archive/v{{ version }}rel.tar.gz
-  sha256: 0e19f02ebbf4c253813142ffe06e12489f3861877c3fab75b6c769c1a1960cac
+  url: https://pypi.io/packages/source/p/pyproj/pyproj-{{ version }}.tar.gz
+  sha256: e0c02b1554b20c710d16d673817b2a89ff94738b0b537aead8ecb2edc4c4487b
   patches:
-    # This is current failing on Windows,
-    # for some reason it cannot find the PROJ_LIB variable
-    # even though it is defined in proj.4's the activation scripts.
     - data_dir.patch
 
 build:
-  number: 1007
+  number: 1000
   script:
     - del _proj.c  # [win]
     - rmdir src  # [win]
@@ -27,7 +24,7 @@ build:
     - export PROJ_LIBDIR="${PREFIX}/lib"  # [not win]
     - export PROJ_INCDIR="${PREFIX}/include"  # [not win]
     - cythonize -a -i _proj.pyx
-    - "{{ PYTHON }} -m pip install . --no-deps --ignore-installed -vv"
+    - "{{ PYTHON }} -m pip install . --no-deps -vv"
 
 requirements:
   build:

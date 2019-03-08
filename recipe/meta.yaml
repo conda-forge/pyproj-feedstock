@@ -1,4 +1,4 @@
-{% set version = "1.9.6" %}
+{% set version = "2.0.0" %}
 
 package:
   name: pyproj
@@ -6,24 +6,12 @@ package:
 
 source:
   url: https://pypi.io/packages/source/p/pyproj/pyproj-{{ version }}.tar.gz
-  sha256: e0c02b1554b20c710d16d673817b2a89ff94738b0b537aead8ecb2edc4c4487b
-  patches:
-    - data_dir.patch
+  sha256: aa8f0fda988353f37831356d82aadafa4b44815d3c4daadcda046f0f345567ce
 
 build:
-  number: 1000
+  number: 0
+  skip: True  # [win and vc<14]
   script:
-    - del _proj.c  # [win]
-    - rmdir src  # [win]
-    - set "PROJ_DIR=%PREFIX%"  # [win]
-    - set "PROJ_LIBDIR=%LIBRARY_LIB%"  # [win]
-    - set "PROJ_INCDIR=%LIBRARY_INC%"  # [win]
-    - rm -d _proj.c  # [not win]
-    - rm -rf src
-    - export PROJ_DIR="${PREFIX}"  # [not win]
-    - export PROJ_LIBDIR="${PREFIX}/lib"  # [not win]
-    - export PROJ_INCDIR="${PREFIX}/include"  # [not win]
-    - cythonize -a -i _proj.pyx
     - "{{ PYTHON }} -m pip install . --no-deps -vv"
 
 requirements:
@@ -33,11 +21,10 @@ requirements:
     - python
     - pip
     - cython
-    - proj4
+    - proj4 6.0.0
   run:
     - python
-    - numpy
-    - proj4
+    - proj4 6.0.0
 
 test:
   imports:

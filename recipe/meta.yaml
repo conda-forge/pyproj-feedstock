@@ -1,4 +1,4 @@
-{% set version = "1.9.6" %}
+{% set version = "2.0.0" %}
 
 package:
   name: pyproj
@@ -6,12 +6,12 @@ package:
 
 source:
   url: https://pypi.io/packages/source/p/pyproj/pyproj-{{ version }}.tar.gz
-  sha256: e0c02b1554b20c710d16d673817b2a89ff94738b0b537aead8ecb2edc4c4487b
+  sha256: aa8f0fda988353f37831356d82aadafa4b44815d3c4daadcda046f0f345567ce
   patches:
     - data_dir.patch
 
 build:
-  number: 1000
+  number: 0
   script:
     - del _proj.c  # [win]
     - rmdir src  # [win]

@@ -21,10 +21,10 @@ requirements:
     - python
     - pip
     - cython
-    - proj4 6.0.*
+    - proj4 6.0.0
   run:
     - python
-    - proj4 >=6.0
+    - proj4 6.0.0
 
 test:
   imports:

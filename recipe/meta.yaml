@@ -31,7 +31,7 @@ test:
     - pyproj
 
 about:
-  home: https://github.com/jswhit/pyproj
+  home: https://github.com/pyproj4/pyproj
   license: OSI
   license_file: LICENSE
   summary: 'Python interface to PROJ.4 library'

@@ -1,7 +1,7 @@
 About pyproj
 ============
 
-Home: https://github.com/jswhit/pyproj
+Home: https://github.com/pyproj4/pyproj
 
 Package license: OSI
 

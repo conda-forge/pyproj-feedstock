@@ -1,4 +1,4 @@
-{% set version = "2.1.3" %}
+{% set version = "1.9.6" %}
 
 package:
   name: pyproj
@@ -6,12 +6,24 @@ package:
 
 source:
   url: https://pypi.io/packages/source/p/pyproj/pyproj-{{ version }}.tar.gz
-  sha256: 99c52788b01a7bb9a88024bf4d40965c0a66a93d654600b5deacf644775f424d
+  sha256: e0c02b1554b20c710d16d673817b2a89ff94738b0b537aead8ecb2edc4c4487b
+  patches:
+    - data_dir.patch
 
 build:
-  number: 2
-  skip: True  # [win and vc<14]
+  number: 1001
   script:
+    - del _proj.c  # [win]
+    - rmdir src  # [win]
+    - set "PROJ_DIR=%PREFIX%"  # [win]
+    - set "PROJ_LIBDIR=%LIBRARY_LIB%"  # [win]
+    - set "PROJ_INCDIR=%LIBRARY_INC%"  # [win]
+    - rm -d _proj.c  # [not win]
+    - rm -rf src
+    - export PROJ_DIR="${PREFIX}"  # [not win]
+    - export PROJ_LIBDIR="${PREFIX}/lib"  # [not win]
+    - export PROJ_INCDIR="${PREFIX}/include"  # [not win]
+    - cythonize -a -i _proj.pyx
     - "{{ PYTHON }} -m pip install . --no-deps -vv"
 
 requirements:
@@ -21,17 +33,18 @@ requirements:
     - python
     - pip
     - cython
-    - proj4
+    - proj4 >=5.2,<6
   run:
     - python
-    - proj4
+    - numpy
+    - proj4 >=5.2,<6
 
 test:
   imports:
     - pyproj
 
 about:
-  home: https://github.com/pyproj4/pyproj
+  home: https://github.com/jswhit/pyproj
   license: OSI
   license_file: LICENSE
   summary: 'Python interface to PROJ.4 library'

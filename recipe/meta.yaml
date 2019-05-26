@@ -11,7 +11,7 @@ source:
     - data_dir.patch
 
 build:
-  number: 1001
+  number: 1002
   script:
     - del _proj.c  # [win]
     - rmdir src  # [win]

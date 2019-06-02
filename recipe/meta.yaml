@@ -25,6 +25,7 @@ requirements:
   run:
     - python
     - proj4
+    - aenum  # [py<36]
 
 test:
   imports:

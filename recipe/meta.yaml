@@ -10,7 +10,7 @@ source:
 
 build:
   number: 0
-  skip: True  # [win and vc<14]
+  skip: True  # [py<35]
   script:
     - "{{ PYTHON }} -m pip install . --no-deps -vv"
 
@@ -25,7 +25,6 @@ requirements:
   run:
     - python
     - proj4
-    - aenum  # [py<36]
 
 test:
   imports:

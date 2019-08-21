@@ -1,4 +1,4 @@
-{% set version = "2.2.2" %}
+{% set version = "2.3.0" %}
 
 package:
   name: pyproj
@@ -6,11 +6,11 @@ package:
 
 source:
   url: https://pypi.io/packages/source/p/pyproj/pyproj-{{ version }}.tar.gz
-  sha256: 6f129a00afdd817dbb331af5709221f35012bcc11a23b8c83fa09197c1190786
+  sha256: 9c50988827076c685ebaf384b7a6993e193c026aad181b6a579f5a3f6915a37d
 
 build:
   number: 0
-  skip: True  # [win and vc<14]
+  skip: True  # [py<35]
   script:
     - "{{ PYTHON }} -m pip install . --no-deps -vv"
 
@@ -25,7 +25,6 @@ requirements:
   run:
     - python
     - proj4
-    - aenum  # [py<36]
 
 test:
   imports:

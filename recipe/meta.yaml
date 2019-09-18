@@ -21,10 +21,10 @@ requirements:
     - python
     - pip
     - cython
-    - proj4
+    - proj
   run:
     - python
-    - proj4
+    - proj
 
 test:
   imports:
@@ -34,7 +34,7 @@ about:
   home: https://github.com/pyproj4/pyproj
   license: OSI
   license_file: LICENSE
-  summary: 'Python interface to PROJ.4 library'
+  summary: 'Python interface to PROJ library'
 
 extra:
   recipe-maintainers:

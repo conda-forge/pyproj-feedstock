@@ -7,7 +7,7 @@ Package license: OSI
 
 Feedstock license: BSD 3-Clause
 
-Summary: Python interface to PROJ.4 library
+Summary: Python interface to PROJ library
 
 
 

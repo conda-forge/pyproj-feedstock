@@ -1,10 +1,10 @@
 import os
 import sys
-import pyproj
-pyproj.test()
 
+import pyproj
 from pyproj import Proj
-Proj(init='epsg:4269')
+
+Proj(init="epsg:4269")
 
 
 # Test pyproj_datadir.

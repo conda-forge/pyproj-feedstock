@@ -7,9 +7,11 @@ package:
 source:
   url: https://pypi.io/packages/source/p/pyproj/pyproj-{{ version }}.tar.gz
   sha256: 1da7f86d3b5e80ba3dabfd2c904a41bb6997ad9b55b47a934035492eaa0f331e
+  patches:
+    - 0001-proj-6.3.0-tests.patch
 
 build:
-  number: 0
+  number: 1
   skip: True  # [py<35]
   script:
     - "{{ PYTHON }} -m pip install . --no-deps -vv"
@@ -49,5 +51,6 @@ extra:
   recipe-maintainers:
     - mingwandroid
     - ocefpaf
-    - snowman2 
+    - snowman2
     - jorisvandenbossche
+    - xylar

@@ -1,4 +1,4 @@
-{% set version = "2.4.2.post1" %}
+{% set version = "2.5.0" %}
 
 package:
   name: pyproj
@@ -6,12 +6,10 @@ package:
 
 source:
   url: https://pypi.io/packages/source/p/pyproj/pyproj-{{ version }}.tar.gz
-  sha256: 1da7f86d3b5e80ba3dabfd2c904a41bb6997ad9b55b47a934035492eaa0f331e
-  patches:
-    - 0001-proj-6.3.0-tests.patch
+  sha256: ec4b2146ec8fcc93c38fbd1dcb0df06e5737d588fe28d833dfb2b241d2736f54
 
 build:
-  number: 1
+  number: 0
   skip: True  # [py<35]
   script:
     - "{{ PYTHON }} -m pip install . --no-deps -vv"

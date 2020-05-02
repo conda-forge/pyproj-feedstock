@@ -3,7 +3,7 @@ About pyproj
 
 Home: https://github.com/pyproj4/pyproj
 
-Package license: OSI
+Package license: MIT
 
 Feedstock license: BSD 3-Clause
 

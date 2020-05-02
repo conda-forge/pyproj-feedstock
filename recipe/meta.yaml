@@ -42,7 +42,7 @@ test:
 
 about:
   home: https://github.com/pyproj4/pyproj
-  license: OSI
+  license: MIT
   license_file: LICENSE
   summary: Python interface to PROJ library
 

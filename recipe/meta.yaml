@@ -38,7 +38,7 @@ test:
   imports:
     - pyproj
   commands:
-    - pytest -v -s -k "not (test_datum or test_doctests or test_transformer__operations or test_transformer__operations__scope_remarks or test_transformer_group__unavailable or test_transform_group__missing_best or test_transform_group__area_of_interest or test_transformer_group__get_transform_crs or test_transformer__area_of_interest or test_transformer_proj__area_of_interest or test_transformer_equals)"
+    - pytest -v -s
 
 about:
   home: https://github.com/pyproj4/pyproj

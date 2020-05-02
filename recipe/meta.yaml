@@ -1,15 +1,16 @@
-{% set version = "2.6.0" %}
+{% set version = "2.6.1" %}
 
 package:
   name: pyproj
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/p/pyproj/pyproj-{{ version }}.tar.gz
-  sha256: 977542d2f8cf2981cf3ad72cedfebcd6ac56977c7aa830d9b49fa7888b56e83d
+  # url: https://pypi.io/packages/source/p/pyproj/pyproj-{{ version }}.tar.gz
+  url: https://github.com/pyproj4/pyproj/archive/2.6.1rc0.tar.gz
+  sha256: 9e5d75f989ee56e1183560e3336b7cc83814ed8ea5df37ecc0e43d9718ffc895
 
 build:
-  number: 1
+  number: 0
   skip: true  # [py<35]
   script:
     - {{ PYTHON }} -m pip install . --no-deps -vv

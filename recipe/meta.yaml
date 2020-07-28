@@ -37,7 +37,7 @@ test:
   imports:
     - pyproj
   commands:
-    - pytest -v -s -k not operations__scope_remarks
+    - pytest -v -s -k "not operations__scope_remarks"
 about:
   home: https://github.com/pyproj4/pyproj
   license: MIT

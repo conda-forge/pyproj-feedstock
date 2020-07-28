@@ -5,7 +5,7 @@ Home: https://github.com/pyproj4/pyproj
 
 Package license: MIT
 
-Feedstock license: BSD 3-Clause
+Feedstock license: BSD-3-Clause
 
 Summary: Python interface to PROJ library
 

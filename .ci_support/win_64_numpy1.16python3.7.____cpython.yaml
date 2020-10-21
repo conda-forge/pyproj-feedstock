@@ -14,8 +14,11 @@ proj:
 - 7.1.1
 python:
 - 3.7.* *_cpython
+python_impl:
+- cpython
 target_platform:
 - win-64
 zip_keys:
 - - python
   - numpy
+  - python_impl

@@ -20,8 +20,11 @@ proj:
 - 7.1.1
 python:
 - 3.6.* *_73_pypy
+python_impl:
+- pypy
 target_platform:
 - linux-64
 zip_keys:
 - - python
   - numpy
+  - python_impl

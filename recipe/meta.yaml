@@ -31,7 +31,7 @@ test:
     - test
   requires:
     - pytest
-    - shapely
+    - shapely  # [python_impl == "cpython"]
     - mock
     - numpy
   imports:

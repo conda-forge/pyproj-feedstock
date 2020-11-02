@@ -12,6 +12,8 @@ source:
 build:
   number: 0
   skip: true  # [py<35]
+  entry_points:
+    - pyproj=pyproj.__main__:main
   script:
     - {{ PYTHON }} -m pip install . --no-deps -vv
 
@@ -41,7 +43,6 @@ test:
     - pyproj
   commands:
     - pyproj --verbose
-    - pyproj sync --area-of-use France --list-files --include-already-downloaded
     - pytest -v -s
 about:
   home: https://github.com/pyproj4/pyproj

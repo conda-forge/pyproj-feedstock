@@ -40,6 +40,8 @@ test:
   imports:
     - pyproj
   commands:
+    - pyproj --verbose
+    - pyproj sync --area-of-use France --list-files --include-already-downloaded
     - pytest -v -s
 about:
   home: https://github.com/pyproj4/pyproj

@@ -22,10 +22,10 @@ requirements:
     - python
     - pip
     - cython
-    - proj
+    - proj >=7.2
   run:
     - python
-    - proj >= 7.2
+    - proj >=7.2
     - certifi
 
 test:

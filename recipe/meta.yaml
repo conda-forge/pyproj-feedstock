@@ -1,4 +1,4 @@
-{% set version = "2.6.1.post1" %}
+{% set version = "3.0.0" %}
 
 package:
   name: pyproj
@@ -6,11 +6,13 @@ package:
 
 source:
   url: https://pypi.io/packages/source/p/pyproj/pyproj-{{ version }}.tar.gz
-  sha256: 4f5b02b4abbd41610397c635b275a8ee4a2b5bc72a75572b98ac6ae7befa471e
+  sha256: 539e320d06e5441edadad2e2ab276e1877445eca384fc1c056b5501453d433c2
 
 build:
-  number: 3
+  number: 0
   skip: true  # [py<35]
+  entry_points:
+    - pyproj=pyproj.__main__:main
   script:
     - {{ PYTHON }} -m pip install . --no-deps -vv
 
@@ -25,6 +27,7 @@ requirements:
   run:
     - python
     - proj
+    - certifi
 
 test:
   source_files:
@@ -32,12 +35,14 @@ test:
   requires:
     - pytest
     - shapely
-    - mock
     - numpy
+    - pandas
+    - xarray
   imports:
     - pyproj
   commands:
-    - pytest -v -s -k "not operations__scope_remarks"
+    - pyproj --verbose
+    - pytest -v -s
 about:
   home: https://github.com/pyproj4/pyproj
   license: MIT

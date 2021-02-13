@@ -14,6 +14,8 @@ build:
   entry_points:
     - pyproj=pyproj.__main__:main
   script:
+    - export "PROJ_VERSION={{ proj }}"  # [unix]
+    - set "PROJ_VERSION={{ proj }}"     # [win]
     - {{ PYTHON }} -m pip install . --no-deps -vv
 
 requirements:

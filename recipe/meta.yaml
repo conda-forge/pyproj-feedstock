@@ -5,9 +5,10 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/p/pyproj/pyproj-{{ version }}.tar.gz
-  sha256: a49581629cadd29e61fc061d153a4d62ff28b4063c71fe8ca881eeb98cd22017
-
+  #url: https://pypi.io/packages/source/p/pyproj/pyproj-{{ version }}.tar.gz
+  #sha256: a49581629cadd29e61fc061d153a4d62ff28b4063c71fe8ca881eeb98cd22017
+  url: https://github.com/pyproj4/pyproj/archive/3.0.1rc0.tar.gz
+  sha256: dd5590713ac1cdc0baefe69c37e53917e83611f96a8e1a96fa772f9f4fb5eab3
 build:
   number: 1
   skip: true  # [py<35]

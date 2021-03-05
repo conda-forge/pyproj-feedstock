@@ -14,10 +14,15 @@ build:
   entry_points:
     - pyproj=pyproj.__main__:main
   script:
+    - export "PROJ_VERSION={{ proj }}"  # [unix]
+    - set "PROJ_VERSION={{ proj }}"     # [win]
     - {{ PYTHON }} -m pip install . --no-deps -vv
 
 requirements:
   build:
+    - python                                 # [build_platform != target_platform]
+    - cross-python_{{ target_platform }}     # [build_platform != target_platform]
+    - cython                                 # [build_platform != target_platform]
     - {{ compiler('c') }}
   host:
     - python

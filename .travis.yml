@@ -7,17 +7,32 @@ language: generic
 
 matrix:
   include:
-    - env: CONFIG=linux_ppc64le_numpy1.18python3.7.____cpython UPLOAD_PACKAGES=True PLATFORM=linux-ppc64le DOCKER_IMAGE=quay.io/condaforge/linux-anvil-ppc64le
+    - env: CONFIG=linux_ppc64le_numpy1.18proj8.0.1python3.7.____cpython UPLOAD_PACKAGES=True PLATFORM=linux-ppc64le DOCKER_IMAGE=quay.io/condaforge/linux-anvil-ppc64le
       os: linux
       arch: ppc64le
       dist: focal
 
-    - env: CONFIG=linux_ppc64le_numpy1.18python3.8.____cpython UPLOAD_PACKAGES=True PLATFORM=linux-ppc64le DOCKER_IMAGE=quay.io/condaforge/linux-anvil-ppc64le
+    - env: CONFIG=linux_ppc64le_numpy1.18proj8.0.1python3.8.____cpython UPLOAD_PACKAGES=True PLATFORM=linux-ppc64le DOCKER_IMAGE=quay.io/condaforge/linux-anvil-ppc64le
       os: linux
       arch: ppc64le
       dist: focal
 
-    - env: CONFIG=linux_ppc64le_numpy1.19python3.9.____cpython UPLOAD_PACKAGES=True PLATFORM=linux-ppc64le DOCKER_IMAGE=quay.io/condaforge/linux-anvil-ppc64le
+    - env: CONFIG=linux_ppc64le_numpy1.18proj8.1.0python3.7.____cpython UPLOAD_PACKAGES=True PLATFORM=linux-ppc64le DOCKER_IMAGE=quay.io/condaforge/linux-anvil-ppc64le
+      os: linux
+      arch: ppc64le
+      dist: focal
+
+    - env: CONFIG=linux_ppc64le_numpy1.18proj8.1.0python3.8.____cpython UPLOAD_PACKAGES=True PLATFORM=linux-ppc64le DOCKER_IMAGE=quay.io/condaforge/linux-anvil-ppc64le
+      os: linux
+      arch: ppc64le
+      dist: focal
+
+    - env: CONFIG=linux_ppc64le_numpy1.19proj8.0.1python3.9.____cpython UPLOAD_PACKAGES=True PLATFORM=linux-ppc64le DOCKER_IMAGE=quay.io/condaforge/linux-anvil-ppc64le
+      os: linux
+      arch: ppc64le
+      dist: focal
+
+    - env: CONFIG=linux_ppc64le_numpy1.19proj8.1.0python3.9.____cpython UPLOAD_PACKAGES=True PLATFORM=linux-ppc64le DOCKER_IMAGE=quay.io/condaforge/linux-anvil-ppc64le
       os: linux
       arch: ppc64le
       dist: focal

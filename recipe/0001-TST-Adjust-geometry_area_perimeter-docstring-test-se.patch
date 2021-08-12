@@ -1,0 +1,28 @@
+From 75070003e3a56f5ad2bb220f19bd2c7cbf6f108c Mon Sep 17 00:00:00 2001
+From: snowman2 <alansnow21@gmail.com>
+Date: Wed, 11 Aug 2021 19:40:03 -0500
+Subject: [PATCH] TST: Adjust geometry_area_perimeter docstring test
+ sensitivity
+
+---
+ pyproj/geod.py | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/pyproj/geod.py b/pyproj/geod.py
+index 1a2edaf..b1bc21d 100644
+--- a/pyproj/geod.py
++++ b/pyproj/geod.py
+@@ -876,8 +876,8 @@ class Geod(_Geod):
+         ...         holes=[LineString([Point(1, 2), Point(3, 4), Point(5, 2)])],
+         ...     )
+         ... )
+-        >>> f"{poly_area:.3f} {poly_perimeter:.3f}"
+-        '944373881400.339 3979008.036'
++        >>> f"{poly_area:.0f} {poly_perimeter:.0f}"
++        '944373881400 3979008'
+ 
+ 
+         Parameters
+-- 
+2.25.1
+

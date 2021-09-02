@@ -20,8 +20,14 @@ jobs:
       osx_64_numpy1.18proj8.1.0python3.8.____cpython:
         CONFIG: osx_64_numpy1.18proj8.1.0python3.8.____cpython
         UPLOAD_PACKAGES: 'True'
+      osx_64_numpy1.19proj8.0.1python3.7.____73_pypy:
+        CONFIG: osx_64_numpy1.19proj8.0.1python3.7.____73_pypy
+        UPLOAD_PACKAGES: 'True'
       osx_64_numpy1.19proj8.0.1python3.9.____cpython:
         CONFIG: osx_64_numpy1.19proj8.0.1python3.9.____cpython
+        UPLOAD_PACKAGES: 'True'
+      osx_64_numpy1.19proj8.1.0python3.7.____73_pypy:
+        CONFIG: osx_64_numpy1.19proj8.1.0python3.7.____73_pypy
         UPLOAD_PACKAGES: 'True'
       osx_64_numpy1.19proj8.1.0python3.9.____cpython:
         CONFIG: osx_64_numpy1.19proj8.1.0python3.9.____cpython

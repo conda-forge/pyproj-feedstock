@@ -1,4 +1,4 @@
-{% set version = "3.1.0" %}
+{% set version = "3.2.0" %}
 
 package:
   name: pyproj
@@ -6,13 +6,13 @@ package:
 
 source:
   url: https://pypi.io/packages/source/p/pyproj/pyproj-{{ version }}.tar.gz
-  sha256: 67b94f4e694ae33fc90dfb7da0e6b5ed5f671dd0acc2f6cf46e9c39d56e16e1a
+  sha256: 48df0d5ab085bd2dc6db3bca79e20bf15b08ffca4f4e42df6d87b566633b800c
   patches:
     - 0001-TST-Adjust-geometry_area_perimeter-docstring-test-se.patch
     - 0001-BUG-Add-PyPy-cython-array-implementation.patch
 
 build:
-  number: 4
+  number: 0
   skip: true  # [py<37]
   entry_points:
     - pyproj=pyproj.__main__:main

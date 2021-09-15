@@ -1,12 +1,13 @@
-{% set version = "3.2.0" %}
+{% set version = "3.2.1" %}
 
 package:
   name: pyproj
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/p/pyproj/pyproj-{{ version }}.tar.gz
-  sha256: 48df0d5ab085bd2dc6db3bca79e20bf15b08ffca4f4e42df6d87b566633b800c
+  # url: https://pypi.io/packages/source/p/pyproj/pyproj-{{ version }}.tar.gz
+  url: https://github.com/pyproj4/pyproj/archive/refs/tags/3.2.1rc0.tar.gz
+  sha256: 1c753b073d9fefcffcae0c6120fbe6ea2b5ff8d810a7a40d2c6b0548583c909c
 
 build:
   number: 0

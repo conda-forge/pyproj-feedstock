@@ -62,7 +62,7 @@ steps:
 
 ---
 kind: pipeline
-name: linux_aarch64_numpy1.18proj8.1.0pyt_h904bf2c572
+name: linux_aarch64_numpy1.18proj8.1.1pyt_h982f2419a7
 
 platform:
   os: linux
@@ -72,7 +72,7 @@ steps:
 - name: Install and build
   image: quay.io/condaforge/linux-anvil-aarch64
   environment:
-    CONFIG: linux_aarch64_numpy1.18proj8.1.0python3.7.____cpython
+    CONFIG: linux_aarch64_numpy1.18proj8.1.1python3.7.____cpython
     UPLOAD_PACKAGES: True
     PLATFORM: linux-aarch64
     BINSTAR_TOKEN:
@@ -93,7 +93,7 @@ steps:
 
 ---
 kind: pipeline
-name: linux_aarch64_numpy1.18proj8.1.0pyt_h96c4abd43d
+name: linux_aarch64_numpy1.18proj8.1.1pyt_h488934fe59
 
 platform:
   os: linux
@@ -103,7 +103,7 @@ steps:
 - name: Install and build
   image: quay.io/condaforge/linux-anvil-aarch64
   environment:
-    CONFIG: linux_aarch64_numpy1.18proj8.1.0python3.8.____cpython
+    CONFIG: linux_aarch64_numpy1.18proj8.1.1python3.8.____cpython
     UPLOAD_PACKAGES: True
     PLATFORM: linux-aarch64
     BINSTAR_TOKEN:
@@ -186,7 +186,7 @@ steps:
 
 ---
 kind: pipeline
-name: linux_aarch64_numpy1.19proj8.1.0pyt_hcb7b4a465f
+name: linux_aarch64_numpy1.19proj8.1.1pyt_hd4cec8da0d
 
 platform:
   os: linux
@@ -196,7 +196,7 @@ steps:
 - name: Install and build
   image: quay.io/condaforge/linux-anvil-aarch64
   environment:
-    CONFIG: linux_aarch64_numpy1.19proj8.1.0python3.7.____73_pypy
+    CONFIG: linux_aarch64_numpy1.19proj8.1.1python3.7.____73_pypy
     UPLOAD_PACKAGES: True
     PLATFORM: linux-aarch64
     BINSTAR_TOKEN:
@@ -217,7 +217,7 @@ steps:
 
 ---
 kind: pipeline
-name: linux_aarch64_numpy1.19proj8.1.0pyt_he34f80805f
+name: linux_aarch64_numpy1.19proj8.1.1pyt_h692803a256
 
 platform:
   os: linux
@@ -227,7 +227,7 @@ steps:
 - name: Install and build
   image: quay.io/condaforge/linux-anvil-aarch64
   environment:
-    CONFIG: linux_aarch64_numpy1.19proj8.1.0python3.9.____cpython
+    CONFIG: linux_aarch64_numpy1.19proj8.1.1python3.9.____cpython
     UPLOAD_PACKAGES: True
     PLATFORM: linux-aarch64
     BINSTAR_TOKEN:

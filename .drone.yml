@@ -25,6 +25,7 @@ steps:
     - export CI=drone
     - export GIT_BRANCH="$DRONE_BRANCH"
     - export FEEDSTOCK_NAME=$(basename ${DRONE_REPO_NAME})
+    - export IS_PR_BUILD=$(if [[ "$${DRONE_PULL_REQUEST:-}" == "" ]]; then echo "False"; else echo "True"; fi)
     - sed -i '$ichown -R conda:conda "$FEEDSTOCK_ROOT"' /opt/docker/bin/entrypoint
     - /opt/docker/bin/entrypoint $FEEDSTOCK_ROOT/.scripts/build_steps.sh
     - echo "Done building"
@@ -56,13 +57,14 @@ steps:
     - export CI=drone
     - export GIT_BRANCH="$DRONE_BRANCH"
     - export FEEDSTOCK_NAME=$(basename ${DRONE_REPO_NAME})
+    - export IS_PR_BUILD=$(if [[ "$${DRONE_PULL_REQUEST:-}" == "" ]]; then echo "False"; else echo "True"; fi)
     - sed -i '$ichown -R conda:conda "$FEEDSTOCK_ROOT"' /opt/docker/bin/entrypoint
     - /opt/docker/bin/entrypoint $FEEDSTOCK_ROOT/.scripts/build_steps.sh
     - echo "Done building"
 
 ---
 kind: pipeline
-name: linux_aarch64_numpy1.18proj8.1.1pyt_h982f2419a7
+name: linux_aarch64_numpy1.18proj8.2.0pyt_h1040a29ad7
 
 platform:
   os: linux
@@ -72,7 +74,7 @@ steps:
 - name: Install and build
   image: quay.io/condaforge/linux-anvil-aarch64
   environment:
-    CONFIG: linux_aarch64_numpy1.18proj8.1.1python3.7.____cpython
+    CONFIG: linux_aarch64_numpy1.18proj8.2.0python3.7.____cpython
     UPLOAD_PACKAGES: True
     PLATFORM: linux-aarch64
     BINSTAR_TOKEN:
@@ -87,13 +89,14 @@ steps:
     - export CI=drone
     - export GIT_BRANCH="$DRONE_BRANCH"
     - export FEEDSTOCK_NAME=$(basename ${DRONE_REPO_NAME})
+    - export IS_PR_BUILD=$(if [[ "$${DRONE_PULL_REQUEST:-}" == "" ]]; then echo "False"; else echo "True"; fi)
     - sed -i '$ichown -R conda:conda "$FEEDSTOCK_ROOT"' /opt/docker/bin/entrypoint
     - /opt/docker/bin/entrypoint $FEEDSTOCK_ROOT/.scripts/build_steps.sh
     - echo "Done building"
 
 ---
 kind: pipeline
-name: linux_aarch64_numpy1.18proj8.1.1pyt_h488934fe59
+name: linux_aarch64_numpy1.18proj8.2.0pyt_h5e8d846b16
 
 platform:
   os: linux
@@ -103,7 +106,7 @@ steps:
 - name: Install and build
   image: quay.io/condaforge/linux-anvil-aarch64
   environment:
-    CONFIG: linux_aarch64_numpy1.18proj8.1.1python3.8.____cpython
+    CONFIG: linux_aarch64_numpy1.18proj8.2.0python3.8.____cpython
     UPLOAD_PACKAGES: True
     PLATFORM: linux-aarch64
     BINSTAR_TOKEN:
@@ -118,6 +121,7 @@ steps:
     - export CI=drone
     - export GIT_BRANCH="$DRONE_BRANCH"
     - export FEEDSTOCK_NAME=$(basename ${DRONE_REPO_NAME})
+    - export IS_PR_BUILD=$(if [[ "$${DRONE_PULL_REQUEST:-}" == "" ]]; then echo "False"; else echo "True"; fi)
     - sed -i '$ichown -R conda:conda "$FEEDSTOCK_ROOT"' /opt/docker/bin/entrypoint
     - /opt/docker/bin/entrypoint $FEEDSTOCK_ROOT/.scripts/build_steps.sh
     - echo "Done building"
@@ -149,6 +153,7 @@ steps:
     - export CI=drone
     - export GIT_BRANCH="$DRONE_BRANCH"
     - export FEEDSTOCK_NAME=$(basename ${DRONE_REPO_NAME})
+    - export IS_PR_BUILD=$(if [[ "$${DRONE_PULL_REQUEST:-}" == "" ]]; then echo "False"; else echo "True"; fi)
     - sed -i '$ichown -R conda:conda "$FEEDSTOCK_ROOT"' /opt/docker/bin/entrypoint
     - /opt/docker/bin/entrypoint $FEEDSTOCK_ROOT/.scripts/build_steps.sh
     - echo "Done building"
@@ -180,13 +185,14 @@ steps:
     - export CI=drone
     - export GIT_BRANCH="$DRONE_BRANCH"
     - export FEEDSTOCK_NAME=$(basename ${DRONE_REPO_NAME})
+    - export IS_PR_BUILD=$(if [[ "$${DRONE_PULL_REQUEST:-}" == "" ]]; then echo "False"; else echo "True"; fi)
     - sed -i '$ichown -R conda:conda "$FEEDSTOCK_ROOT"' /opt/docker/bin/entrypoint
     - /opt/docker/bin/entrypoint $FEEDSTOCK_ROOT/.scripts/build_steps.sh
     - echo "Done building"
 
 ---
 kind: pipeline
-name: linux_aarch64_numpy1.19proj8.1.1pyt_hd4cec8da0d
+name: linux_aarch64_numpy1.19proj8.2.0pyt_h67d028c25c
 
 platform:
   os: linux
@@ -196,7 +202,7 @@ steps:
 - name: Install and build
   image: quay.io/condaforge/linux-anvil-aarch64
   environment:
-    CONFIG: linux_aarch64_numpy1.19proj8.1.1python3.7.____73_pypy
+    CONFIG: linux_aarch64_numpy1.19proj8.2.0python3.7.____73_pypy
     UPLOAD_PACKAGES: True
     PLATFORM: linux-aarch64
     BINSTAR_TOKEN:
@@ -211,13 +217,14 @@ steps:
     - export CI=drone
     - export GIT_BRANCH="$DRONE_BRANCH"
     - export FEEDSTOCK_NAME=$(basename ${DRONE_REPO_NAME})
+    - export IS_PR_BUILD=$(if [[ "$${DRONE_PULL_REQUEST:-}" == "" ]]; then echo "False"; else echo "True"; fi)
     - sed -i '$ichown -R conda:conda "$FEEDSTOCK_ROOT"' /opt/docker/bin/entrypoint
     - /opt/docker/bin/entrypoint $FEEDSTOCK_ROOT/.scripts/build_steps.sh
     - echo "Done building"
 
 ---
 kind: pipeline
-name: linux_aarch64_numpy1.19proj8.1.1pyt_h692803a256
+name: linux_aarch64_numpy1.19proj8.2.0pyt_hcde88ca85b
 
 platform:
   os: linux
@@ -227,7 +234,7 @@ steps:
 - name: Install and build
   image: quay.io/condaforge/linux-anvil-aarch64
   environment:
-    CONFIG: linux_aarch64_numpy1.19proj8.1.1python3.9.____cpython
+    CONFIG: linux_aarch64_numpy1.19proj8.2.0python3.9.____cpython
     UPLOAD_PACKAGES: True
     PLATFORM: linux-aarch64
     BINSTAR_TOKEN:
@@ -242,6 +249,7 @@ steps:
     - export CI=drone
     - export GIT_BRANCH="$DRONE_BRANCH"
     - export FEEDSTOCK_NAME=$(basename ${DRONE_REPO_NAME})
+    - export IS_PR_BUILD=$(if [[ "$${DRONE_PULL_REQUEST:-}" == "" ]]; then echo "False"; else echo "True"; fi)
     - sed -i '$ichown -R conda:conda "$FEEDSTOCK_ROOT"' /opt/docker/bin/entrypoint
     - /opt/docker/bin/entrypoint $FEEDSTOCK_ROOT/.scripts/build_steps.sh
     - echo "Done building"

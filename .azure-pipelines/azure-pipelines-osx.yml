@@ -14,11 +14,11 @@ jobs:
       osx_64_numpy1.18proj8.0.1python3.8.____cpython:
         CONFIG: osx_64_numpy1.18proj8.0.1python3.8.____cpython
         UPLOAD_PACKAGES: 'True'
-      osx_64_numpy1.18proj8.1.1python3.7.____cpython:
-        CONFIG: osx_64_numpy1.18proj8.1.1python3.7.____cpython
+      osx_64_numpy1.18proj8.2.0python3.7.____cpython:
+        CONFIG: osx_64_numpy1.18proj8.2.0python3.7.____cpython
         UPLOAD_PACKAGES: 'True'
-      osx_64_numpy1.18proj8.1.1python3.8.____cpython:
-        CONFIG: osx_64_numpy1.18proj8.1.1python3.8.____cpython
+      osx_64_numpy1.18proj8.2.0python3.8.____cpython:
+        CONFIG: osx_64_numpy1.18proj8.2.0python3.8.____cpython
         UPLOAD_PACKAGES: 'True'
       osx_64_numpy1.19proj8.0.1python3.7.____73_pypy:
         CONFIG: osx_64_numpy1.19proj8.0.1python3.7.____73_pypy
@@ -26,11 +26,11 @@ jobs:
       osx_64_numpy1.19proj8.0.1python3.9.____cpython:
         CONFIG: osx_64_numpy1.19proj8.0.1python3.9.____cpython
         UPLOAD_PACKAGES: 'True'
-      osx_64_numpy1.19proj8.1.1python3.7.____73_pypy:
-        CONFIG: osx_64_numpy1.19proj8.1.1python3.7.____73_pypy
+      osx_64_numpy1.19proj8.2.0python3.7.____73_pypy:
+        CONFIG: osx_64_numpy1.19proj8.2.0python3.7.____73_pypy
         UPLOAD_PACKAGES: 'True'
-      osx_64_numpy1.19proj8.1.1python3.9.____cpython:
-        CONFIG: osx_64_numpy1.19proj8.1.1python3.9.____cpython
+      osx_64_numpy1.19proj8.2.0python3.9.____cpython:
+        CONFIG: osx_64_numpy1.19proj8.2.0python3.9.____cpython
         UPLOAD_PACKAGES: 'True'
       osx_arm64_proj8.0.1python3.8.____cpython:
         CONFIG: osx_arm64_proj8.0.1python3.8.____cpython
@@ -38,11 +38,11 @@ jobs:
       osx_arm64_proj8.0.1python3.9.____cpython:
         CONFIG: osx_arm64_proj8.0.1python3.9.____cpython
         UPLOAD_PACKAGES: 'True'
-      osx_arm64_proj8.1.1python3.8.____cpython:
-        CONFIG: osx_arm64_proj8.1.1python3.8.____cpython
+      osx_arm64_proj8.2.0python3.8.____cpython:
+        CONFIG: osx_arm64_proj8.2.0python3.8.____cpython
         UPLOAD_PACKAGES: 'True'
-      osx_arm64_proj8.1.1python3.9.____cpython:
-        CONFIG: osx_arm64_proj8.1.1python3.9.____cpython
+      osx_arm64_proj8.2.0python3.9.____cpython:
+        CONFIG: osx_arm64_proj8.2.0python3.9.____cpython
         UPLOAD_PACKAGES: 'True'
   timeoutInMinutes: 360
 
@@ -53,6 +53,11 @@ jobs:
       export OSX_FORCE_SDK_DOWNLOAD="1"
       export GIT_BRANCH=$BUILD_SOURCEBRANCHNAME
       export FEEDSTOCK_NAME=$(basename ${BUILD_REPOSITORY_NAME})
+      if [[ "${BUILD_REASON:-}" == "PullRequest" ]]; then
+        export IS_PR_BUILD="True"
+      else
+        export IS_PR_BUILD="False"
+      fi
       ./.scripts/run_osx_build.sh
     displayName: Run OSX build
     env:

@@ -1,0 +1,232 @@
+diff -ruN pyproj-3.2.1/test/conftest.py pyproj-3.2.1-patch/test/conftest.py
+--- pyproj-3.2.1/test/conftest.py	2021-09-03 19:04:17.000000000 -0700
++++ pyproj-3.2.1-patch/test/conftest.py	2021-11-04 20:09:26.782832742 -0700
+@@ -12,7 +12,8 @@
+ PROJ_LOOSE_VERSION = version.parse(pyproj.__proj_version__)
+ PROJ_GTE_8 = PROJ_LOOSE_VERSION >= version.parse("8.0")
+ PROJ_GTE_81 = PROJ_LOOSE_VERSION >= version.parse("8.1")
+-
++PROJ_GTE_82 = PROJ_LOOSE_VERSION >= version.parse("8.2")
++RGF93toWSG84 = "RGF93 v1 to WGS 84 (1)" if PROJ_GTE_82 else "RGF93 to WGS 84 (1)"
+ 
+ if PROJ_GTE_8:
+     # https://github.com/OSGeo/PROJ/pull/2536
+diff -ruN pyproj-3.2.1/test/crs/test_crs_cf.py pyproj-3.2.1-patch/test/crs/test_crs_cf.py
+--- pyproj-3.2.1/test/crs/test_crs_cf.py	2021-09-15 17:54:55.000000000 -0700
++++ pyproj-3.2.1-patch/test/crs/test_crs_cf.py	2021-11-04 20:10:27.307219561 -0700
+@@ -1610,7 +1610,6 @@
+ def test_cartesian_cs():
+     unit = {"type": "LinearUnit", "name": "US Survey Foot", "conversion_factor": 0.3048}
+     cartesian_cs = {
+-        "$schema": "https://proj.org/schemas/v0.2/projjson.schema.json",
+         "type": "CoordinateSystem",
+         "subtype": "Cartesian",
+         "axis": [
+@@ -1637,7 +1636,9 @@
+         },
+         cartesian_cs=cartesian_cs,
+     )
+-    assert crs.coordinate_system.to_json_dict() == cartesian_cs
++    json_dict = crs.coordinate_system.to_json_dict()
++    json_dict.pop("$schema")
++    assert json_dict == cartesian_cs
+     # test coordinate system
+     assert crs.cs_to_cf() == [
+         {
+@@ -1657,7 +1658,6 @@
+ 
+ def test_ellipsoidal_cs():
+     ellipsoidal_cs = {
+-        "$schema": "https://proj.org/schemas/v0.2/projjson.schema.json",
+         "type": "CoordinateSystem",
+         "subtype": "ellipsoidal",
+         "axis": [
+@@ -1683,7 +1683,9 @@
+         ),
+         ellipsoidal_cs=ellipsoidal_cs,
+     )
+-    assert crs.coordinate_system.to_json_dict() == ellipsoidal_cs
++    json_dict = crs.coordinate_system.to_json_dict()
++    json_dict.pop("$schema")
++    assert json_dict == ellipsoidal_cs
+     # test coordinate system
+     assert crs.cs_to_cf() == [
+         {
+@@ -1703,7 +1705,6 @@
+ 
+ def test_ellipsoidal_cs__from_name():
+     ellipsoidal_cs = {
+-        "$schema": "https://proj.org/schemas/v0.2/projjson.schema.json",
+         "type": "CoordinateSystem",
+         "subtype": "ellipsoidal",
+         "axis": [
+@@ -1725,7 +1726,9 @@
+         dict(grid_mapping_name="latitude_longitude", geographic_crs_name="WGS 84"),
+         ellipsoidal_cs=ellipsoidal_cs,
+     )
+-    assert crs.coordinate_system.to_json_dict() == ellipsoidal_cs
++    json_dict = crs.coordinate_system.to_json_dict()
++    json_dict.pop("$schema")
++    assert json_dict == ellipsoidal_cs
+     # test coordinate system
+     assert crs.cs_to_cf() == [
+         {
+@@ -1746,7 +1749,6 @@
+ def test_export_compound_crs_cs():
+     unit = {"type": "LinearUnit", "name": "US Survey Foot", "conversion_factor": 0.3048}
+     cartesian_cs = {
+-        "$schema": "https://proj.org/schemas/v0.2/projjson.schema.json",
+         "type": "CoordinateSystem",
+         "subtype": "Cartesian",
+         "axis": [
+@@ -1760,7 +1762,6 @@
+         ],
+     }
+     vertical_cs = {
+-        "$schema": "https://proj.org/schemas/v0.2/projjson.schema.json",
+         "type": "CoordinateSystem",
+         "subtype": "vertical",
+         "axis": [
+@@ -1795,8 +1796,12 @@
+         cartesian_cs=cartesian_cs,
+         vertical_cs=vertical_cs,
+     )
+-    assert crs.sub_crs_list[0].coordinate_system.to_json_dict() == cartesian_cs
+-    assert crs.sub_crs_list[1].coordinate_system.to_json_dict() == vertical_cs
++    cartesian_json_dict = crs.sub_crs_list[0].coordinate_system.to_json_dict()
++    cartesian_json_dict.pop("$schema")
++    vertical_json_dict = crs.sub_crs_list[1].coordinate_system.to_json_dict()
++    vertical_json_dict.pop("$schema")
++    assert cartesian_json_dict == cartesian_cs
++    assert vertical_json_dict == vertical_cs
+     # test coordinate system
+     assert crs.cs_to_cf() == [
+         {
+diff -ruN pyproj-3.2.1/test/crs/test_crs.py pyproj-3.2.1-patch/test/crs/test_crs.py
+--- pyproj-3.2.1/test/crs/test_crs.py	2021-09-15 17:54:55.000000000 -0700
++++ pyproj-3.2.1-patch/test/crs/test_crs.py	2021-11-04 20:10:06.726915546 -0700
+@@ -1,5 +1,6 @@
+ import concurrent.futures
+ import json
++import platform
+ 
+ import numpy
+ import pytest
+@@ -21,6 +22,8 @@
+ from test.conftest import (
+     HAYFORD_ELLIPSOID_NAME,
+     PROJ_GTE_8,
++    PROJ_GTE_82,
++    RGF93toWSG84,
+     assert_can_pickle,
+     get_wgs84_datum_name,
+     grids_available,
+@@ -623,7 +626,7 @@
+         "urn:ogc:def:coordinateOperation:EPSG::1671",
+         CoordinateOperation.from_epsg(1671),
+         CoordinateOperation.from_epsg(1671).to_json_dict(),
+-        "RGF93 to WGS 84 (1)",
++        RGF93toWSG84,
+     ],
+ )
+ def test_coordinate_operation__from_user_input(user_input):
+@@ -648,18 +651,30 @@
+ 
+ 
+ def test_datum__from_epsg():
+-    if PROJ_GTE_8:
++    if PROJ_GTE_82:
++        datum_wkt = (
++            'ENSEMBLE["World Geodetic System 1984 ensemble",'
++            'MEMBER["World Geodetic System 1984 (Transit)",ID["EPSG",1166]],'
++            'MEMBER["World Geodetic System 1984 (G730)",ID["EPSG",1152]],'
++            'MEMBER["World Geodetic System 1984 (G873)",ID["EPSG",1153]],'
++            'MEMBER["World Geodetic System 1984 (G1150)",ID["EPSG",1154]],'
++            'MEMBER["World Geodetic System 1984 (G1674)",ID["EPSG",1155]],'
++            'MEMBER["World Geodetic System 1984 (G1762)",ID["EPSG",1156]],'
++            'MEMBER["World Geodetic System 1984 (G2139)",ID["EPSG",1309]],'
++            'ELLIPSOID["WGS 84",6378137,298.257223563,LENGTHUNIT["metre",1],'
++            'ID["EPSG",7030]],ENSEMBLEACCURACY[2.0],ID["EPSG",6326]]'
++        )
++    elif PROJ_GTE_8:
+         datum_wkt = (
+             'ENSEMBLE["World Geodetic System 1984 ensemble",'
+-            'MEMBER["World Geodetic System 1984 (Transit)",'
+-            'ID["EPSG",1166]],MEMBER["World Geodetic System 1984 (G730)",'
+-            'ID["EPSG",1152]],MEMBER["World Geodetic System 1984 (G873)",'
+-            'ID["EPSG",1153]],MEMBER["World Geodetic System 1984 (G1150)",'
+-            'ID["EPSG",1154]],MEMBER["World Geodetic System 1984 (G1674)",'
+-            'ID["EPSG",1155]],MEMBER["World Geodetic System 1984 (G1762)",'
+-            'ID["EPSG",1156]],ELLIPSOID["WGS 84",6378137,298.257223563,'
+-            'LENGTHUNIT["metre",1],ID["EPSG",7030]],'
+-            'ENSEMBLEACCURACY[2.0],ID["EPSG",6326]]'
++            'MEMBER["World Geodetic System 1984 (Transit)",ID["EPSG",1166]],'
++            'MEMBER["World Geodetic System 1984 (G730)",ID["EPSG",1152]],'
++            'MEMBER["World Geodetic System 1984 (G873)",ID["EPSG",1153]],'
++            'MEMBER["World Geodetic System 1984 (G1150)",ID["EPSG",1154]],'
++            'MEMBER["World Geodetic System 1984 (G1674)",ID["EPSG",1155]],'
++            'MEMBER["World Geodetic System 1984 (G1762)",ID["EPSG",1156]],'
++            'ELLIPSOID["WGS 84",6378137,298.257223563,LENGTHUNIT["metre",1],'
++            'ID["EPSG",7030]],ENSEMBLEACCURACY[2.0],ID["EPSG",6326]]'
+         )
+     else:
+         datum_wkt = (
+@@ -1073,11 +1088,11 @@
+ 
+ 
+ @pytest.mark.parametrize(
+-    "input_str", ["urn:ogc:def:coordinateOperation:EPSG::1671", "RGF93 to WGS 84 (1)"]
++    "input_str", ["urn:ogc:def:coordinateOperation:EPSG::1671", RGF93toWSG84]
+ )
+ def test_coordinate_operation__from_string(input_str):
+     co = CoordinateOperation.from_string(input_str)
+-    assert co.name == "RGF93 to WGS 84 (1)"
++    assert co.name == RGF93toWSG84
+ 
+ 
+ def test_coordinate_operation__from_name():
+@@ -1442,6 +1457,9 @@
+             pass
+ 
+ 
++@pytest.mark.skipif(
++    platform.python_implementation() != "CPython", reason="pypy process unstable."
++)
+ def test_crs_multiprocess():
+     # https://github.com/pyproj4/pyproj/issues/933
+     with concurrent.futures.ProcessPoolExecutor(max_workers=2) as executor:
+diff -ruN pyproj-3.2.1/test/test_transformer.py pyproj-3.2.1-patch/test/test_transformer.py
+--- pyproj-3.2.1/test/test_transformer.py	2021-09-03 19:04:17.000000000 -0700
++++ pyproj-3.2.1-patch/test/test_transformer.py	2021-11-04 20:09:38.298778749 -0700
+@@ -20,6 +20,7 @@
+ from test.conftest import (
+     PROJ_GTE_8,
+     PROJ_GTE_81,
++    RGF93toWSG84,
+     grids_available,
+     proj_env,
+     proj_network_env,
+@@ -1161,12 +1162,12 @@
+     "input_string",
+     [
+         "EPSG:1671",
+-        "RGF93 to WGS 84 (1)",
++        RGF93toWSG84,
+         "urn:ogc:def:coordinateOperation:EPSG::1671",
+     ],
+ )
+ def test_transformer_from_pipeline__input_types(input_string):
+-    assert Transformer.from_pipeline(input_string).description == "RGF93 to WGS 84 (1)"
++    assert Transformer.from_pipeline(input_string).description == RGF93toWSG84
+ 
+ 
+ @pytest.mark.parametrize(
+@@ -1184,7 +1185,7 @@
+                 method_name,
+             )()
+         ).description
+-        == "RGF93 to WGS 84 (1)"
++        == RGF93toWSG84
+     )
+ 
+ 

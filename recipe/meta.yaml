@@ -7,6 +7,8 @@ package:
 source:
   url: https://pypi.io/packages/source/p/pyproj/pyproj-{{ version }}.tar.gz
   sha256: 4a936093825ff55b24c1fc6cc093541fcf6d0f6d406589ed699e62048ebf3877
+  patches:
+    - 0001-patch-tests-for-proj820.patch
 
 build:
   number: 3

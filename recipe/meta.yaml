@@ -41,7 +41,7 @@ test:
     - test
   requires:
     - pytest
-    - shapely  # [not osx and py=3.10]
+    - shapely  # [not osx]
     - numpy
     - pandas
     - xarray

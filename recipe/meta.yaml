@@ -11,7 +11,7 @@ source:
     - 0001-patch-tests-for-proj820.patch
 
 build:
-  number: 3
+  number: 4
   skip: true  # [py<37]
   entry_points:
     - pyproj=pyproj.__main__:main
@@ -41,7 +41,7 @@ test:
     - test
   requires:
     - pytest
-    - shapely
+    - shapely  # [not osx]
     - numpy
     - pandas
     - xarray

@@ -1,18 +1,17 @@
-{% set version = "3.2.1" %}
+{% set version = "3.3.0" %}
 
 package:
   name: pyproj
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/p/pyproj/pyproj-{{ version }}.tar.gz
-  sha256: 4a936093825ff55b24c1fc6cc093541fcf6d0f6d406589ed699e62048ebf3877
-  patches:
-    - 0001-patch-tests-for-proj820.patch
+#  url: https://pypi.io/packages/source/p/pyproj/pyproj-{{ version }}.tar.gz
+  url: https://github.com/pyproj4/pyproj/archive/refs/tags/3.3rc0.tar.gz
+  sha256: 8dd57195cefeeaa4a05d3347a823be27644f0c5d43b7f14c68b7af0646834031
 
 build:
-  number: 5
-  skip: true  # [py<37]
+  number: 0
+  skip: true  # [py<38]
   entry_points:
     - pyproj=pyproj.__main__:main
   script:
@@ -49,7 +48,7 @@ test:
     - pyproj
   commands:
     - pyproj --verbose
-    - pytest -v -s -k "not test_crs_multiprocess"
+    - pytest -v -s
 about:
   home: https://github.com/pyproj4/pyproj
   license: MIT

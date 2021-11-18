@@ -5,9 +5,8 @@ package:
   version: {{ version }}
 
 source:
-#  url: https://pypi.io/packages/source/p/pyproj/pyproj-{{ version }}.tar.gz
-  url: https://github.com/pyproj4/pyproj/archive/refs/tags/3.3rc0.tar.gz
-  sha256: 8dd57195cefeeaa4a05d3347a823be27644f0c5d43b7f14c68b7af0646834031
+  url: https://pypi.io/packages/source/p/pyproj/pyproj-{{ version }}.tar.gz
+  sha256: ce8bfbc212729e9a643f5f5d77f7a93394e032eda1e2d8799ae902d08add747e
 
 build:
   number: 0

@@ -1,3 +1,6 @@
+# This branch is maintained for Python 3.7. pyproj >=3.3 supports only Python >=
+# 3.8.
+
 {% set version = "3.2.1" %}
 
 package:
@@ -11,8 +14,8 @@ source:
     - 0001-patch-tests-for-proj820.patch
 
 build:
-  number: 5
-  skip: true  # [py<37]
+  number: 6
+  skip: true  # [py>37] -- see above
   entry_points:
     - pyproj=pyproj.__main__:main
   script:

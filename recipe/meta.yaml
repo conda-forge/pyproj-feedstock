@@ -9,7 +9,7 @@ source:
   sha256: ce8bfbc212729e9a643f5f5d77f7a93394e032eda1e2d8799ae902d08add747e
 
 build:
-  number: 2
+  number: 3
   skip: true  # [py<38]
   entry_points:
     - pyproj=pyproj.__main__:main

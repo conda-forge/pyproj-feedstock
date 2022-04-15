@@ -1,4 +1,7 @@
-{% set version = "3.3.0" %}
+# This branch is maintained for Python 3.7. pyproj >=3.3 supports only Python >=
+# 3.8.
+
+{% set version = "3.2.1" %}
 
 package:
   name: pyproj
@@ -6,11 +9,13 @@ package:
 
 source:
   url: https://pypi.io/packages/source/p/pyproj/pyproj-{{ version }}.tar.gz
-  sha256: ce8bfbc212729e9a643f5f5d77f7a93394e032eda1e2d8799ae902d08add747e
+  sha256: 4a936093825ff55b24c1fc6cc093541fcf6d0f6d406589ed699e62048ebf3877
+  patches:
+    - 0001-patch-tests-for-proj820.patch
 
 build:
-  number: 2
-  skip: true  # [py<38]
+  number: 6
+  skip: true  # [py>37] -- see above
   entry_points:
     - pyproj=pyproj.__main__:main
   script:
@@ -47,7 +52,7 @@ test:
     - pyproj
   commands:
     - pyproj --verbose
-    - pytest -v -s
+    - pytest -v -s -k "not test_crs_multiprocess"
 about:
   home: https://github.com/pyproj4/pyproj
   license: MIT

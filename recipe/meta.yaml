@@ -39,8 +39,7 @@ test:
     - test
   requires:
     - pytest
-    # temporarily disable shapely testing in PyPy because the package isn't available yet
-    - shapely  # [python_impl != 'pypy']
+    - shapely
     - numpy
     - pandas
     - xarray

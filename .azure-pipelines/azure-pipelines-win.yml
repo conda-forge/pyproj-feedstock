@@ -8,14 +8,26 @@ jobs:
     vmImage: windows-2019
   strategy:
     matrix:
-      win_64_numpy1.18proj8.0.1python3.8.____cpython:
-        CONFIG: win_64_numpy1.18proj8.0.1python3.8.____cpython
+      win_64_numpy1.19proj8.0.1python3.8.____73_pypy:
+        CONFIG: win_64_numpy1.19proj8.0.1python3.8.____73_pypy
         UPLOAD_PACKAGES: 'True'
-      win_64_numpy1.18proj9.0.0python3.8.____cpython:
-        CONFIG: win_64_numpy1.18proj9.0.0python3.8.____cpython
+      win_64_numpy1.19proj8.0.1python3.8.____cpython:
+        CONFIG: win_64_numpy1.19proj8.0.1python3.8.____cpython
+        UPLOAD_PACKAGES: 'True'
+      win_64_numpy1.19proj8.0.1python3.9.____73_pypy:
+        CONFIG: win_64_numpy1.19proj8.0.1python3.9.____73_pypy
         UPLOAD_PACKAGES: 'True'
       win_64_numpy1.19proj8.0.1python3.9.____cpython:
         CONFIG: win_64_numpy1.19proj8.0.1python3.9.____cpython
+        UPLOAD_PACKAGES: 'True'
+      win_64_numpy1.19proj9.0.0python3.8.____73_pypy:
+        CONFIG: win_64_numpy1.19proj9.0.0python3.8.____73_pypy
+        UPLOAD_PACKAGES: 'True'
+      win_64_numpy1.19proj9.0.0python3.8.____cpython:
+        CONFIG: win_64_numpy1.19proj9.0.0python3.8.____cpython
+        UPLOAD_PACKAGES: 'True'
+      win_64_numpy1.19proj9.0.0python3.9.____73_pypy:
+        CONFIG: win_64_numpy1.19proj9.0.0python3.9.____73_pypy
         UPLOAD_PACKAGES: 'True'
       win_64_numpy1.19proj9.0.0python3.9.____cpython:
         CONFIG: win_64_numpy1.19proj9.0.0python3.9.____cpython
@@ -26,6 +38,7 @@ jobs:
       win_64_numpy1.21proj9.0.0python3.10.____cpython:
         CONFIG: win_64_numpy1.21proj9.0.0python3.10.____cpython
         UPLOAD_PACKAGES: 'True'
+    maxParallel: 9
   timeoutInMinutes: 360
   variables:
     CONDA_BLD_PATH: D:\\bld\\

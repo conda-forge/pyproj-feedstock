@@ -39,7 +39,7 @@ test:
     - test
   requires:
     - pytest
-    - shapely  # [not osx or py<=39]
+    - shapely  # [(not osx or py<=39) and python_impl != 'pypy']
     - numpy
     - pandas
     - xarray

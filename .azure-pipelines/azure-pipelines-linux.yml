@@ -24,28 +24,28 @@ jobs:
         CONFIG: linux_64_numpy1.19proj8.0.1python3.9.____cpython
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cos7-x86_64
-      linux_64_numpy1.19proj9.0.0python3.8.____73_pypy:
-        CONFIG: linux_64_numpy1.19proj9.0.0python3.8.____73_pypy
+      linux_64_numpy1.19proj9.0.1python3.8.____73_pypy:
+        CONFIG: linux_64_numpy1.19proj9.0.1python3.8.____73_pypy
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cos7-x86_64
-      linux_64_numpy1.19proj9.0.0python3.8.____cpython:
-        CONFIG: linux_64_numpy1.19proj9.0.0python3.8.____cpython
+      linux_64_numpy1.19proj9.0.1python3.8.____cpython:
+        CONFIG: linux_64_numpy1.19proj9.0.1python3.8.____cpython
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cos7-x86_64
-      linux_64_numpy1.19proj9.0.0python3.9.____73_pypy:
-        CONFIG: linux_64_numpy1.19proj9.0.0python3.9.____73_pypy
+      linux_64_numpy1.19proj9.0.1python3.9.____73_pypy:
+        CONFIG: linux_64_numpy1.19proj9.0.1python3.9.____73_pypy
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cos7-x86_64
-      linux_64_numpy1.19proj9.0.0python3.9.____cpython:
-        CONFIG: linux_64_numpy1.19proj9.0.0python3.9.____cpython
+      linux_64_numpy1.19proj9.0.1python3.9.____cpython:
+        CONFIG: linux_64_numpy1.19proj9.0.1python3.9.____cpython
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cos7-x86_64
       linux_64_numpy1.21proj8.0.1python3.10.____cpython:
         CONFIG: linux_64_numpy1.21proj8.0.1python3.10.____cpython
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cos7-x86_64
-      linux_64_numpy1.21proj9.0.0python3.10.____cpython:
-        CONFIG: linux_64_numpy1.21proj9.0.0python3.10.____cpython
+      linux_64_numpy1.21proj9.0.1python3.10.____cpython:
+        CONFIG: linux_64_numpy1.21proj9.0.1python3.10.____cpython
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cos7-x86_64
       linux_aarch64_numpy1.19proj8.0.1python3.8.____73_pypy:
@@ -64,28 +64,28 @@ jobs:
         CONFIG: linux_aarch64_numpy1.19proj8.0.1python3.9.____cpython
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-aarch64
-      linux_aarch64_numpy1.19proj9.0.0python3.8.____73_pypy:
-        CONFIG: linux_aarch64_numpy1.19proj9.0.0python3.8.____73_pypy
+      linux_aarch64_numpy1.19proj9.0.1python3.8.____73_pypy:
+        CONFIG: linux_aarch64_numpy1.19proj9.0.1python3.8.____73_pypy
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-aarch64
-      linux_aarch64_numpy1.19proj9.0.0python3.8.____cpython:
-        CONFIG: linux_aarch64_numpy1.19proj9.0.0python3.8.____cpython
+      linux_aarch64_numpy1.19proj9.0.1python3.8.____cpython:
+        CONFIG: linux_aarch64_numpy1.19proj9.0.1python3.8.____cpython
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-aarch64
-      linux_aarch64_numpy1.19proj9.0.0python3.9.____73_pypy:
-        CONFIG: linux_aarch64_numpy1.19proj9.0.0python3.9.____73_pypy
+      linux_aarch64_numpy1.19proj9.0.1python3.9.____73_pypy:
+        CONFIG: linux_aarch64_numpy1.19proj9.0.1python3.9.____73_pypy
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-aarch64
-      linux_aarch64_numpy1.19proj9.0.0python3.9.____cpython:
-        CONFIG: linux_aarch64_numpy1.19proj9.0.0python3.9.____cpython
+      linux_aarch64_numpy1.19proj9.0.1python3.9.____cpython:
+        CONFIG: linux_aarch64_numpy1.19proj9.0.1python3.9.____cpython
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-aarch64
       linux_aarch64_numpy1.21proj8.0.1python3.10.____cpython:
         CONFIG: linux_aarch64_numpy1.21proj8.0.1python3.10.____cpython
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-aarch64
-      linux_aarch64_numpy1.21proj9.0.0python3.10.____cpython:
-        CONFIG: linux_aarch64_numpy1.21proj9.0.0python3.10.____cpython
+      linux_aarch64_numpy1.21proj9.0.1python3.10.____cpython:
+        CONFIG: linux_aarch64_numpy1.21proj9.0.1python3.10.____cpython
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-aarch64
       linux_ppc64le_numpy1.19proj8.0.1python3.8.____73_pypy:
@@ -104,28 +104,28 @@ jobs:
         CONFIG: linux_ppc64le_numpy1.19proj8.0.1python3.9.____cpython
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-ppc64le
-      linux_ppc64le_numpy1.19proj9.0.0python3.8.____73_pypy:
-        CONFIG: linux_ppc64le_numpy1.19proj9.0.0python3.8.____73_pypy
+      linux_ppc64le_numpy1.19proj9.0.1python3.8.____73_pypy:
+        CONFIG: linux_ppc64le_numpy1.19proj9.0.1python3.8.____73_pypy
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-ppc64le
-      linux_ppc64le_numpy1.19proj9.0.0python3.8.____cpython:
-        CONFIG: linux_ppc64le_numpy1.19proj9.0.0python3.8.____cpython
+      linux_ppc64le_numpy1.19proj9.0.1python3.8.____cpython:
+        CONFIG: linux_ppc64le_numpy1.19proj9.0.1python3.8.____cpython
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-ppc64le
-      linux_ppc64le_numpy1.19proj9.0.0python3.9.____73_pypy:
-        CONFIG: linux_ppc64le_numpy1.19proj9.0.0python3.9.____73_pypy
+      linux_ppc64le_numpy1.19proj9.0.1python3.9.____73_pypy:
+        CONFIG: linux_ppc64le_numpy1.19proj9.0.1python3.9.____73_pypy
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-ppc64le
-      linux_ppc64le_numpy1.19proj9.0.0python3.9.____cpython:
-        CONFIG: linux_ppc64le_numpy1.19proj9.0.0python3.9.____cpython
+      linux_ppc64le_numpy1.19proj9.0.1python3.9.____cpython:
+        CONFIG: linux_ppc64le_numpy1.19proj9.0.1python3.9.____cpython
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-ppc64le
       linux_ppc64le_numpy1.21proj8.0.1python3.10.____cpython:
         CONFIG: linux_ppc64le_numpy1.21proj8.0.1python3.10.____cpython
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-ppc64le
-      linux_ppc64le_numpy1.21proj9.0.0python3.10.____cpython:
-        CONFIG: linux_ppc64le_numpy1.21proj9.0.0python3.10.____cpython
+      linux_ppc64le_numpy1.21proj9.0.1python3.10.____cpython:
+        CONFIG: linux_ppc64le_numpy1.21proj9.0.1python3.10.____cpython
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-ppc64le
     maxParallel: 27

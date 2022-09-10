@@ -1,15 +1,9 @@
 c_compiler:
-- gcc
-c_compiler_version:
-- '10'
-cdt_name:
-- cos7
+- vs2019
 channel_sources:
 - conda-forge
 channel_targets:
 - conda-forge main
-docker_image:
-- quay.io/condaforge/linux-anvil-ppc64le
 numpy:
 - '1.19'
 pin_run_as_build:
@@ -17,11 +11,11 @@ pin_run_as_build:
     min_pin: x.x
     max_pin: x.x
 proj:
-- 9.0.1
+- 7.2.0
 python:
-- 3.9.* *_73_pypy
+- 3.8.* *_73_pypy
 target_platform:
-- linux-ppc64le
+- win-64
 zip_keys:
 - - python
   - numpy

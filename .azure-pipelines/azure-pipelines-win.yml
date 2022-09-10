@@ -8,6 +8,18 @@ jobs:
     vmImage: windows-2019
   strategy:
     matrix:
+      win_64_numpy1.19proj7.2.0python3.8.____73_pypy:
+        CONFIG: win_64_numpy1.19proj7.2.0python3.8.____73_pypy
+        UPLOAD_PACKAGES: 'True'
+      win_64_numpy1.19proj7.2.0python3.8.____cpython:
+        CONFIG: win_64_numpy1.19proj7.2.0python3.8.____cpython
+        UPLOAD_PACKAGES: 'True'
+      win_64_numpy1.19proj7.2.0python3.9.____73_pypy:
+        CONFIG: win_64_numpy1.19proj7.2.0python3.9.____73_pypy
+        UPLOAD_PACKAGES: 'True'
+      win_64_numpy1.19proj7.2.0python3.9.____cpython:
+        CONFIG: win_64_numpy1.19proj7.2.0python3.9.____cpython
+        UPLOAD_PACKAGES: 'True'
       win_64_numpy1.19proj8.0.1python3.8.____73_pypy:
         CONFIG: win_64_numpy1.19proj8.0.1python3.8.____73_pypy
         UPLOAD_PACKAGES: 'True'
@@ -20,23 +32,11 @@ jobs:
       win_64_numpy1.19proj8.0.1python3.9.____cpython:
         CONFIG: win_64_numpy1.19proj8.0.1python3.9.____cpython
         UPLOAD_PACKAGES: 'True'
-      win_64_numpy1.19proj9.0.1python3.8.____73_pypy:
-        CONFIG: win_64_numpy1.19proj9.0.1python3.8.____73_pypy
-        UPLOAD_PACKAGES: 'True'
-      win_64_numpy1.19proj9.0.1python3.8.____cpython:
-        CONFIG: win_64_numpy1.19proj9.0.1python3.8.____cpython
-        UPLOAD_PACKAGES: 'True'
-      win_64_numpy1.19proj9.0.1python3.9.____73_pypy:
-        CONFIG: win_64_numpy1.19proj9.0.1python3.9.____73_pypy
-        UPLOAD_PACKAGES: 'True'
-      win_64_numpy1.19proj9.0.1python3.9.____cpython:
-        CONFIG: win_64_numpy1.19proj9.0.1python3.9.____cpython
+      win_64_numpy1.21proj7.2.0python3.10.____cpython:
+        CONFIG: win_64_numpy1.21proj7.2.0python3.10.____cpython
         UPLOAD_PACKAGES: 'True'
       win_64_numpy1.21proj8.0.1python3.10.____cpython:
         CONFIG: win_64_numpy1.21proj8.0.1python3.10.____cpython
-        UPLOAD_PACKAGES: 'True'
-      win_64_numpy1.21proj9.0.1python3.10.____cpython:
-        CONFIG: win_64_numpy1.21proj9.0.1python3.10.____cpython
         UPLOAD_PACKAGES: 'True'
     maxParallel: 9
   timeoutInMinutes: 360
@@ -81,10 +81,12 @@ jobs:
         call activate base
         run_conda_forge_build_setup
       displayName: conda-forge build setup
-    
 
     - script: |
         call activate base
+        if EXIST LICENSE.txt (
+          copy LICENSE.txt "recipe\\recipe-scripts-license.txt"
+        )
         conda.exe mambabuild "recipe" -m .ci_support\%CONFIG%.yaml --suppress-variables
       displayName: Build recipe
       env:

@@ -54,7 +54,7 @@ about:
   license: MIT
   license_file:
     - LICENSE
-    - LICENSE_proj
+    - LICENSE_proj4
   summary: Python interface to PROJ library
 
 extra:

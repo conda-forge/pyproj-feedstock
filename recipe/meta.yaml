@@ -52,7 +52,9 @@ test:
 about:
   home: https://github.com/pyproj4/pyproj
   license: MIT
-  license_file: LICENSE
+  license_file:
+    - LICENSE
+    - LICENSE_proj
   summary: Python interface to PROJ library
 
 extra:

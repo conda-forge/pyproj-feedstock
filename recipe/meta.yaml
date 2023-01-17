@@ -47,8 +47,7 @@ test:
     - pyproj
   commands:
     - pyproj --verbose
-    # remove the skipped test in the next pyproj release
-    - pytest -v -s -k "not test_get_transform_grid_list__contains"
+    - pytest -v -s
 about:
   home: https://github.com/pyproj4/pyproj
   license: MIT

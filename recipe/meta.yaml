@@ -7,6 +7,9 @@ package:
 source:
   url: https://pypi.io/packages/source/p/pyproj/pyproj-{{ version }}.tar.gz
   sha256: 261eb29b1d55b1eb7f336127344d9b31284d950a9446d1e0d1c2411f7dd8e3ac
+  patches:
+    # remove on next release, see https://github.com/pyproj4/pyproj/pull/1210
+    - 0001-fix-expected-transform-grid-list.patch
 
 build:
   number: 1

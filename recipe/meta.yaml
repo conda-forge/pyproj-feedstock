@@ -13,9 +13,9 @@ build:
   skip: true  # [py<38]
   entry_points:
     - pyproj=pyproj.__main__:main
+  script_env:
+    - PROJ_VERSION={{ proj }}
   script:
-    - export "PROJ_VERSION={{ proj }}"  # [unix]
-    - set "PROJ_VERSION={{ proj }}"     # [win]
     - {{ PYTHON }} -m pip install . --no-deps -vv
 
 requirements:

@@ -7,15 +7,18 @@ package:
 source:
   url: https://pypi.io/packages/source/p/pyproj/pyproj-{{ version }}.tar.gz
   sha256: 261eb29b1d55b1eb7f336127344d9b31284d950a9446d1e0d1c2411f7dd8e3ac
+  patches:
+    # remove on next release, see https://github.com/pyproj4/pyproj/pull/1210
+    - 0001-fix-expected-transform-grid-list.patch
 
 build:
-  number: 0
+  number: 1
   skip: true  # [py<38]
   entry_points:
     - pyproj=pyproj.__main__:main
+  script_env:
+    - PROJ_VERSION={{ proj }}
   script:
-    - export "PROJ_VERSION={{ proj }}"  # [unix]
-    - set "PROJ_VERSION={{ proj }}"     # [win]
     - {{ PYTHON }} -m pip install . --no-deps -vv
 
 requirements:
@@ -47,8 +50,12 @@ test:
     - pyproj
   commands:
     - pyproj --verbose
-    # remove the skipped test in the next pyproj release
-    - pytest -v -s -k "not test_get_transform_grid_list__contains"
+    # make sure we've fixed the issue in https://github.com/conda-forge/pyproj-feedstock/issues/126
+    - export "PROJ_NETWORK=ON"           # [unix]
+    - export "PYPROJ_GLOBAL_CONTEXT=ON"  # [unix]
+    - set "PROJ_NETWORK=ON"              # [win]
+    - set "PYPROJ_GLOBAL_CONTEXT=ON"     # [win]
+    - pytest -v -s
 about:
   home: https://github.com/pyproj4/pyproj
   license: MIT

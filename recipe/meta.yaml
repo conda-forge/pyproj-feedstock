@@ -51,8 +51,10 @@ test:
   commands:
     - pyproj --verbose
     # make sure we've fixed the issue in https://github.com/conda-forge/pyproj-feedstock/issues/126
-    - export "PROJ_NETWORK=ON"  # [unix]
-    - set "PROJ_NETWORK=ON"     # [win]
+    - export "PROJ_NETWORK=ON"           # [unix]
+    - export "PYPROJ_GLOBAL_CONTEXT=ON"  # [unix]
+    - set "PROJ_NETWORK=ON"              # [win]
+    - set "PYPROJ_GLOBAL_CONTEXT=ON"     # [win]
     - pytest -v -s
 about:
   home: https://github.com/pyproj4/pyproj

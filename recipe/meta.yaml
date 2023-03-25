@@ -1,4 +1,4 @@
-{% set version = "3.4.1" %}
+{% set version = "3.5.0rc0" %}
 
 package:
   name: pyproj
@@ -6,13 +6,13 @@ package:
 
 source:
   url: https://pypi.io/packages/source/p/pyproj/pyproj-{{ version }}.tar.gz
-  sha256: 261eb29b1d55b1eb7f336127344d9b31284d950a9446d1e0d1c2411f7dd8e3ac
+  sha256: 8d0b0f7751b5625fd96354335b3427db1817cad99148017a9afce3742b7f5f28
   patches:
     # remove on next release, see https://github.com/pyproj4/pyproj/pull/1210
     - 0001-fix-expected-transform-grid-list.patch
 
 build:
-  number: 1
+  number: 0
   skip: true  # [py<38]
   entry_points:
     - pyproj=pyproj.__main__:main

@@ -1,11 +1,11 @@
-About pyproj
-============
+About pyproj-feedstock
+======================
+
+Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/pyproj-feedstock/blob/main/LICENSE.txt)
 
 Home: https://github.com/pyproj4/pyproj
 
 Package license: MIT
-
-Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/pyproj-feedstock/blob/main/LICENSE.txt)
 
 Summary: Python interface to PROJ library
 

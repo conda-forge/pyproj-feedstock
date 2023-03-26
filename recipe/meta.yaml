@@ -1,11 +1,11 @@
-{% set version = "3.5.0rc0" %}
+{% set version = "3.5.0" %}
 
 package:
   name: pyproj
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/p/pyproj/pyproj-{{ version }}.tar.gz
+  url: https://pypi.io/packages/source/p/pyproj/pyproj-3.5.0rc0.tar.gz
   sha256: 8d0b0f7751b5625fd96354335b3427db1817cad99148017a9afce3742b7f5f28
   patches:
     # remove on next release, see https://github.com/pyproj4/pyproj/pull/1210

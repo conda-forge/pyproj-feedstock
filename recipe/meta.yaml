@@ -1,4 +1,4 @@
-{% set version = "3.5.0rc0" %}
+{% set version = "3.5.0" %}
 
 package:
   name: pyproj
@@ -6,7 +6,7 @@ package:
 
 source:
   url: https://pypi.io/packages/source/p/pyproj/pyproj-{{ version }}.tar.gz
-  sha256: 8d0b0f7751b5625fd96354335b3427db1817cad99148017a9afce3742b7f5f28
+  sha256: 9859d1591c1863414d875ae0759e72c2cffc01ab989dc64137fbac572cc81bf6
 
 build:
   number: 0
@@ -58,7 +58,7 @@ about:
   license: MIT
   license_file:
     - LICENSE
-    - LICENSE_proj4
+    - LICENSE_proj
   summary: Python interface to PROJ library
 
 extra:

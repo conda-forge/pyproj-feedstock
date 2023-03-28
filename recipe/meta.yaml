@@ -1,4 +1,4 @@
-{% set version = "3.4.1" %}
+{% set version = "3.5.0" %}
 
 package:
   name: pyproj
@@ -6,13 +6,10 @@ package:
 
 source:
   url: https://pypi.io/packages/source/p/pyproj/pyproj-{{ version }}.tar.gz
-  sha256: 261eb29b1d55b1eb7f336127344d9b31284d950a9446d1e0d1c2411f7dd8e3ac
-  patches:
-    # remove on next release, see https://github.com/pyproj4/pyproj/pull/1210
-    - 0001-fix-expected-transform-grid-list.patch
+  sha256: 9859d1591c1863414d875ae0759e72c2cffc01ab989dc64137fbac572cc81bf6
 
 build:
-  number: 1
+  number: 0
   skip: true  # [py<38]
   entry_points:
     - pyproj=pyproj.__main__:main
@@ -61,7 +58,7 @@ about:
   license: MIT
   license_file:
     - LICENSE
-    - LICENSE_proj4
+    - LICENSE_proj
   summary: Python interface to PROJ library
 
 extra:

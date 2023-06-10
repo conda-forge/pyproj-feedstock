@@ -1,4 +1,4 @@
-{% set version = "3.5.0" %}
+{% set version = "3.6.0rc0" %}
 
 package:
   name: pyproj
@@ -6,11 +6,11 @@ package:
 
 source:
   url: https://pypi.io/packages/source/p/pyproj/pyproj-{{ version }}.tar.gz
-  sha256: 9859d1591c1863414d875ae0759e72c2cffc01ab989dc64137fbac572cc81bf6
+  sha256: 122fc92dda0e875c985a6a14841c474cd77355e2ccaab9f69abbaf6c54c25aba
 
 build:
-  number: 1
-  skip: true  # [py<38]
+  number: 0
+  skip: true  # [py<39]
   entry_points:
     - pyproj=pyproj.__main__:main
   script_env:
@@ -47,7 +47,6 @@ test:
     - pyproj
   commands:
     - pyproj --verbose
-    # make sure we've fixed the issue in https://github.com/conda-forge/pyproj-feedstock/issues/126
     - export "PROJ_NETWORK=ON"           # [unix]
     - export "PYPROJ_GLOBAL_CONTEXT=ON"  # [unix]
     - set "PROJ_NETWORK=ON"              # [win]

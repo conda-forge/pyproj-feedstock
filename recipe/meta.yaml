@@ -42,8 +42,6 @@ test:
     - pytest
     - shapely
     - numpy
-    - pandas
-    - xarray
   imports:
     - pyproj
   commands:

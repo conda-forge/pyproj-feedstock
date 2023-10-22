@@ -11,7 +11,7 @@ source:
 build:
   number: 3
   # we will figure out the ppc64le failures in a subsequent PR
-  skip: true  # [py<39]
+  skip: true  # [py<39 or python_impl == 'pypy']
   entry_points:
     - pyproj=pyproj.__main__:main
   script_env:

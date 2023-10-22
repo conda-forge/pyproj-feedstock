@@ -11,7 +11,7 @@ channel_targets:
 docker_image:
 - quay.io/condaforge/linux-anvil-ppc64le
 numpy:
-- '1.23'
+- '1.22'
 pin_run_as_build:
   python:
     min_pin: x.x
@@ -19,9 +19,12 @@ pin_run_as_build:
 proj:
 - 9.3.0
 python:
-- 3.11.* *_cpython
+- 3.9.* *_cpython
+python_impl:
+- cpython
 target_platform:
 - linux-ppc64le
 zip_keys:
 - - python
   - numpy
+  - python_impl

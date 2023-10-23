@@ -10,7 +10,6 @@ source:
 
 build:
   number: 4
-  # we will figure out the ppc64le failures in a subsequent PR
   skip: true  # [py<39]
   entry_points:
     - pyproj=pyproj.__main__:main

@@ -9,7 +9,7 @@ source:
   sha256: 44aa7c704c2b7d8fb3d483bbf75af6cb2350d30a63b144279a09b75fead501bf
 
 build:
-  number: 3
+  number: 4
   # we will figure out the ppc64le failures in a subsequent PR
   skip: true  # [py<39]
   entry_points:

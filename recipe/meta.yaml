@@ -12,7 +12,7 @@ source:
 
 build:
   number: 6
-  skip: true  # [py<39]
+  skip: true  # [py<39 or ppc64le]
   entry_points:
     - pyproj=pyproj.__main__:main
   script_env:

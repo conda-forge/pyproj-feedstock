@@ -7,10 +7,12 @@ package:
 source:
   url: https://pypi.io/packages/source/p/pyproj/pyproj-{{ version }}.tar.gz
   sha256: 44aa7c704c2b7d8fb3d483bbf75af6cb2350d30a63b144279a09b75fead501bf
+  patches:
+    - 0001-azimuthal-equidistant.patch
 
 build:
-  number: 5
-  skip: true  # [py<39]
+  number: 6
+  skip: true  # [py<39 or ppc64le]
   entry_points:
     - pyproj=pyproj.__main__:main
   script_env:

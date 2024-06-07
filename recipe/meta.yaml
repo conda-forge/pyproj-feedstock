@@ -21,7 +21,7 @@ build:
     - for /f "tokens=2 delims==/ " %%i IN ('echo %PROJ_VERSION_LINE%') do (set PROJ_VERSION=%%~i)                                                       # [win]
     - echo PROJ_VERSION detected as %PROJ_VERSION%                                                                                                      # [win]
     - export PROJ_VERSION=$(conda list -p $PREFIX proj | grep -v '^#' | tr -s ' ' | cut -f 2 -d ' ')                                                    # [unix]
-    - echo "PROJ_VERSION detected as ${PROJ_VERSION}                                                                                                    # [unix]
+    - echo "PROJ_VERSION detected as ${PROJ_VERSION}"                                                                                                   # [unix]
     - {{ PYTHON }} -m pip install . --no-deps -vv
 
 requirements:

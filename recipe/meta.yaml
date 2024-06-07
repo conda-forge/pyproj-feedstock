@@ -11,7 +11,7 @@ source:
     - 0001-azimuthal-equidistant.patch
 
 build:
-  number: 6
+  number: 7
   skip: true  # [py<39 or ppc64le]
   entry_points:
     - pyproj=pyproj.__main__:main
@@ -26,6 +26,7 @@ requirements:
     - cross-python_{{ target_platform }}     # [build_platform != target_platform]
     - cython                                 # [build_platform != target_platform]
     - {{ compiler('c') }}
+    - {{ stdlib("c") }}
   host:
     - python
     - pip

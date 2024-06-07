@@ -15,14 +15,6 @@ build:
   skip: true  # [py<39 or ppc64le]
   entry_points:
     - pyproj=pyproj.__main__:main
-  script:
-    # based on https://github.com/conda-forge/python-feedstock/blob/3732e621ad28b925e402c3c1d8542bac029920ad/recipe/build_base.bat#L28-L30
-    - for /f "usebackq delims=" %%i in (`conda list -p %PREFIX% proj --no-show-channel-urls --json ^| findstr "version"`) do set PROJ_VERSION_LINE=%%i  # [win]
-    - for /f "tokens=2 delims==/ " %%i IN ('echo %PROJ_VERSION_LINE%') do (set PROJ_VERSION=%%~i)                                                       # [win]
-    - echo PROJ_VERSION detected as %PROJ_VERSION%                                                                                                      # [win]
-    - export PROJ_VERSION=$(conda list -p $PREFIX proj | grep -v '^#' | tr -s ' ' | cut -f 2 -d ' ')                                                    # [unix]
-    - echo "PROJ_VERSION detected as ${PROJ_VERSION}"                                                                                                   # [unix]
-    - {{ PYTHON }} -m pip install . --no-deps -vv
 
 requirements:
   build:

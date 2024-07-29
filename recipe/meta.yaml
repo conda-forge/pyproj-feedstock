@@ -10,6 +10,7 @@ source:
   patches:
     - 0001-azimuthal-equidistant.patch
     - 0002-test-coordinate-operation-grids-alternative-grid-name.patch
+    - 0003-test-datum-ensemble-allowing-new-members.patch
 
 build:
   number: 8

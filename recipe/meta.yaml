@@ -9,10 +9,12 @@ source:
   sha256: 44aa7c704c2b7d8fb3d483bbf75af6cb2350d30a63b144279a09b75fead501bf
   patches:
     - 0001-azimuthal-equidistant.patch
+    - 0002-test-coordinate-operation-grids-alternative-grid-name.patch
+    - 0003-test-datum-ensemble-allowing-new-members.patch
 
 build:
-  number: 7
-  skip: true  # [py<39 or ppc64le]
+  number: 8
+  skip: true  # [py<39]
   entry_points:
     - pyproj=pyproj.__main__:main
 
@@ -48,6 +50,9 @@ test:
     - export "PYPROJ_GLOBAL_CONTEXT=ON"  # [unix]
     - set "PROJ_NETWORK=ON"              # [win]
     - set "PYPROJ_GLOBAL_CONTEXT=ON"     # [win]
+    # needed for a test_transform_single_point_nad83_to_nad27 to pass on ppc64le
+    # see https://github.com/conda-forge/proj.4-feedstock/issues/148
+    - projsync --file us_noaa_nadcon5_nad27_nad83_1986_conus.tif  # [ppc64le]
     - python -m pytest -v -s
 about:
   home: https://github.com/pyproj4/pyproj

@@ -13,7 +13,7 @@ source:
     - 0003-test-datum-ensemble-allowing-new-members.patch
 
 build:
-  number: 8
+  number: 9
   skip: true  # [py<39]
   entry_points:
     - pyproj=pyproj.__main__:main

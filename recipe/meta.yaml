@@ -30,6 +30,7 @@ requirements:
     - pip
     - cython
     - proj
+    - setuptools
   run:
     - python
     - proj

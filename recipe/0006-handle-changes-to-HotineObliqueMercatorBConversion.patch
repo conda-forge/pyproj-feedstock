@@ -1,0 +1,328 @@
+From 4a3c89f2ffbe83d3e6045d9f93090bfebf3488dd Mon Sep 17 00:00:00 2001
+From: snowman2 <alansnow21@gmail.com>
+Date: Mon, 26 Aug 2024 23:23:36 -0500
+Subject: [PATCH] BUG: Handle changes to HotineObliqueMercatorBConversion
+
+---
+ docs/history.rst                          |  1 +
+ pyproj/crs/_cf1x8.py                      | 16 +++-
+ pyproj/crs/coordinate_operation.py        | 68 ++++++++++++++---
+ test/conftest.py                          |  1 +
+ test/crs/test_crs_coordinate_operation.py | 89 +++++++++++++++++++++--
+ 5 files changed, 155 insertions(+), 20 deletions(-)
+
+diff --git a/pyproj/crs/_cf1x8.py b/pyproj/crs/_cf1x8.py
+index 51929c601..46a2ce5b0 100644
+--- a/pyproj/crs/_cf1x8.py
++++ b/pyproj/crs/_cf1x8.py
+@@ -233,9 +233,9 @@ def _oblique_mercator(cf_params):
+     return HotineObliqueMercatorBConversion(
+         latitude_projection_centre=cf_params["latitude_of_projection_origin"],
+         longitude_projection_centre=cf_params["longitude_of_projection_origin"],
+-        azimuth_initial_line=cf_params["azimuth_of_central_line"],
++        azimuth_projection_centre=cf_params["azimuth_of_central_line"],
+         angle_from_rectified_to_skew_grid=0.0,
+-        scale_factor_on_initial_line=cf_params.get(
++        scale_factor_projection_centre=cf_params.get(
+             "scale_factor_at_projection_origin", 1.0
+         ),
+         easting_projection_centre=cf_params.get("false_easting", 0.0),
+@@ -515,12 +515,20 @@ def _oblique_mercator__to_cf(conversion):
+         warnings.warn(
+             "angle from rectified to skew grid parameter lost in conversion to CF"
+         )
++    try:
++        azimuth_of_central_line = params["azimuth_of_initial_line"]
++    except KeyError:
++        azimuth_of_central_line = params["azimuth_at_projection_centre"]
++    try:
++        scale_factor_at_projection_origin = params["scale_factor_on_initial_line"]
++    except KeyError:
++        scale_factor_at_projection_origin = params["scale_factor_at_projection_centre"]
+     return {
+         "grid_mapping_name": "oblique_mercator",
+         "latitude_of_projection_origin": params["latitude_of_projection_centre"],
+         "longitude_of_projection_origin": params["longitude_of_projection_centre"],
+-        "azimuth_of_central_line": params["azimuth_of_initial_line"],
+-        "scale_factor_at_projection_origin": params["scale_factor_on_initial_line"],
++        "azimuth_of_central_line": azimuth_of_central_line,
++        "scale_factor_at_projection_origin": scale_factor_at_projection_origin,
+         "false_easting": params["easting_at_projection_centre"],
+         "false_northing": params["northing_at_projection_centre"],
+     }
+diff --git a/pyproj/crs/coordinate_operation.py b/pyproj/crs/coordinate_operation.py
+index bc04b17b9..e3408c77c 100644
+--- a/pyproj/crs/coordinate_operation.py
++++ b/pyproj/crs/coordinate_operation.py
+@@ -7,9 +7,10 @@
+
+ # pylint: disable=too-many-lines
+ import warnings
+-from typing import Any
++from typing import Any, Optional
+
+ from pyproj._crs import CoordinateOperation
++from pyproj._version import PROJ_VERSION
+ from pyproj.exceptions import CRSError
+
+
+@@ -759,6 +760,7 @@ def __new__(
+ class HotineObliqueMercatorBConversion(CoordinateOperation):
+     """
+     .. versionadded:: 2.5.0
++    .. versionadded:: 3.7.0 azimuth_projection_centre, scale_factor_projection_centre
+
+     Class for constructing the Hotine Oblique Mercator (variant B) conversion.
+
+@@ -769,11 +771,13 @@ def __new__(
+         cls,
+         latitude_projection_centre: float,
+         longitude_projection_centre: float,
+-        azimuth_initial_line: float,
+         angle_from_rectified_to_skew_grid: float,
+-        scale_factor_on_initial_line: float = 1.0,
+         easting_projection_centre: float = 0.0,
+         northing_projection_centre: float = 0.0,
++        azimuth_projection_centre: Optional[float] = None,
++        scale_factor_projection_centre: Optional[float] = None,
++        azimuth_initial_line: Optional[float] = None,
++        scale_factor_on_initial_line: Optional[float] = None,
+     ):
+         """
+         Parameters
+@@ -782,17 +786,55 @@ def __new__(
+             Latitude of projection centre (lat_0).
+         longitude_projection_centre: float
+             Longitude of projection centre (lonc).
+-        azimuth_initial_line: float
++        azimuth_projection_centre: float
+             Azimuth of initial line (alpha).
+         angle_from_rectified_to_skew_grid: float
+             Angle from Rectified to Skew Grid (gamma).
+-        scale_factor_on_initial_line: float, default=1.0
++        scale_factor_projection_centre: float, default=1.0
+             Scale factor on initial line (k or k_0).
+         easting_projection_centre: float, default=0.0
+             Easting at projection centre (x_0).
+         northing_projection_centre: float, default=0.0
+             Northing at projection centre (y_0).
++        azimuth_initial_line: float
++            Deprecated alias for azimuth_projection_centre,
++        scale_factor_on_initial_line: float
++            Deprecated alias for scale_factor_projection_centre.
+         """
++        if scale_factor_on_initial_line is not None:
++            if scale_factor_projection_centre is not None:
++                raise ValueError(
++                    "scale_factor_projection_centre and scale_factor_on_initial_line "
++                    "cannot be provided together."
++                )
++            warnings.warn(
++                "scale_factor_on_initial_line is deprecated. "
++                "Use scale_factor_projection_centre instead.",
++                FutureWarning,
++                stacklevel=2,
++            )
++            scale_factor_projection_centre = scale_factor_on_initial_line
++        elif scale_factor_projection_centre is None:
++            scale_factor_projection_centre = 1.0
++
++        if azimuth_projection_centre is None and azimuth_initial_line is None:
++            raise ValueError(
++                "azimuth_projection_centre or azimuth_initial_line must be provided."
++            )
++        if azimuth_initial_line is not None:
++            if azimuth_projection_centre is not None:
++                raise ValueError(
++                    "azimuth_projection_centre and azimuth_initial_line cannot be "
++                    "provided together."
++                )
++            warnings.warn(
++                "azimuth_initial_line is deprecated. "
++                "Use azimuth_projection_centre instead.",
++                FutureWarning,
++                stacklevel=2,
++            )
++            azimuth_projection_centre = azimuth_initial_line
++
+         omerc_json = {
+             "$schema": "https://proj.org/schemas/v0.2/projjson.schema.json",
+             "type": "Conversion",
+@@ -815,8 +857,12 @@ def __new__(
+                     "id": {"authority": "EPSG", "code": 8812},
+                 },
+                 {
+-                    "name": "Azimuth of initial line",
+-                    "value": azimuth_initial_line,
++                    "name": (
++                        "Azimuth at projection centre"
++                        if PROJ_VERSION >= (9, 5, 0)
++                        else "Azimuth of initial line"
++                    ),
++                    "value": azimuth_projection_centre,
+                     "unit": "degree",
+                     "id": {"authority": "EPSG", "code": 8813},
+                 },
+@@ -827,8 +873,12 @@ def __new__(
+                     "id": {"authority": "EPSG", "code": 8814},
+                 },
+                 {
+-                    "name": "Scale factor on initial line",
+-                    "value": scale_factor_on_initial_line,
++                    "name": (
++                        "Scale factor at projection centre"
++                        if PROJ_VERSION >= (9, 5, 0)
++                        else "Scale factor on initial line"
++                    ),
++                    "value": scale_factor_projection_centre,
+                     "unit": "unity",
+                     "id": {"authority": "EPSG", "code": 8815},
+                 },
+diff --git a/test/conftest.py b/test/conftest.py
+index ac9ecebee..0abbc6c01 100644
+--- a/test/conftest.py
++++ b/test/conftest.py
+@@ -15,6 +15,7 @@
+ PROJ_GTE_921 = PROJ_LOOSE_VERSION >= version.parse("9.2.1")
+ PROJ_GTE_93 = PROJ_LOOSE_VERSION >= version.parse("9.3.0")
+ PROJ_GTE_941 = PROJ_LOOSE_VERSION >= version.parse("9.4.1")
++PROJ_GTE_95 = PROJ_LOOSE_VERSION >= version.parse("9.5.0")
+
+
+ def unset_data_dir():
+diff --git a/test/crs/test_crs_coordinate_operation.py b/test/crs/test_crs_coordinate_operation.py
+index b28fa10fc..0b9692253 100644
+--- a/test/crs/test_crs_coordinate_operation.py
++++ b/test/crs/test_crs_coordinate_operation.py
+@@ -29,6 +29,7 @@
+     VerticalPerspectiveConversion,
+ )
+ from pyproj.exceptions import CRSError
++from test.conftest import PROJ_GTE_95
+
+
+ def _to_dict(operation):
+@@ -340,7 +341,7 @@ def test_hotline_oblique_mercator_b_operation__defaults():
+     hop = HotineObliqueMercatorBConversion(
+         latitude_projection_centre=0,
+         longitude_projection_centre=0,
+-        azimuth_initial_line=0,
++        azimuth_projection_centre=0,
+         angle_from_rectified_to_skew_grid=0,
+     )
+     assert hop.name == "unknown"
+@@ -348,9 +349,15 @@ def test_hotline_oblique_mercator_b_operation__defaults():
+     assert _to_dict(hop) == {
+         "Latitude of projection centre": 0.0,
+         "Longitude of projection centre": 0.0,
+-        "Azimuth of initial line": 0.0,
++        (
++            "Azimuth at projection centre" if PROJ_GTE_95 else "Azimuth of initial line"
++        ): 0.0,
+         "Angle from Rectified to Skew Grid": 0.0,
+-        "Scale factor on initial line": 1.0,
++        (
++            "Scale factor at projection centre"
++            if PROJ_GTE_95
++            else "Scale factor on initial line"
++        ): 1.0,
+         "Easting at projection centre": 0.0,
+         "Northing at projection centre": 0.0,
+     }
+@@ -360,9 +367,9 @@ def test_hotline_oblique_mercator_b_operation():
+     hop = HotineObliqueMercatorBConversion(
+         latitude_projection_centre=1,
+         longitude_projection_centre=2,
+-        azimuth_initial_line=3,
++        azimuth_projection_centre=3,
+         angle_from_rectified_to_skew_grid=4,
+-        scale_factor_on_initial_line=0.5,
++        scale_factor_projection_centre=0.5,
+         easting_projection_centre=6,
+         northing_projection_centre=7,
+     )
+@@ -371,14 +378,82 @@ def test_hotline_oblique_mercator_b_operation():
+     assert _to_dict(hop) == {
+         "Latitude of projection centre": 1.0,
+         "Longitude of projection centre": 2.0,
+-        "Azimuth of initial line": 3.0,
++        (
++            "Azimuth at projection centre" if PROJ_GTE_95 else "Azimuth of initial line"
++        ): 3.0,
+         "Angle from Rectified to Skew Grid": 4.0,
+-        "Scale factor on initial line": 0.5,
++        (
++            "Scale factor at projection centre"
++            if PROJ_GTE_95
++            else "Scale factor on initial line"
++        ): 0.5,
+         "Easting at projection centre": 6.0,
+         "Northing at projection centre": 7.0,
+     }
+
+
++def test_hotline_oblique_mercator_b_operation__deprecated_kwargs():
++    with pytest.warns(FutureWarning):
++        hop = HotineObliqueMercatorBConversion(
++            latitude_projection_centre=1,
++            longitude_projection_centre=2,
++            azimuth_initial_line=3,
++            angle_from_rectified_to_skew_grid=4,
++            scale_factor_on_initial_line=0.5,
++            easting_projection_centre=6,
++            northing_projection_centre=7,
++        )
++    assert hop.name == "unknown"
++    assert hop.method_name == "Hotine Oblique Mercator (variant B)"
++    assert _to_dict(hop) == {
++        "Latitude of projection centre": 1.0,
++        "Longitude of projection centre": 2.0,
++        (
++            "Azimuth at projection centre" if PROJ_GTE_95 else "Azimuth of initial line"
++        ): 3.0,
++        "Angle from Rectified to Skew Grid": 4.0,
++        (
++            "Scale factor at projection centre"
++            if PROJ_GTE_95
++            else "Scale factor on initial line"
++        ): 0.5,
++        "Easting at projection centre": 6.0,
++        "Northing at projection centre": 7.0,
++    }
++
++
++def test_hotline_oblique_mercator_b_operation__missing_azimuth():
++    with pytest.raises(ValueError):
++        HotineObliqueMercatorBConversion(
++            latitude_projection_centre=1,
++            longitude_projection_centre=2,
++            angle_from_rectified_to_skew_grid=4,
++        )
++
++
++def test_hotline_oblique_mercator_b_operation__duplicate_azimuth():
++    with pytest.raises(ValueError):
++        HotineObliqueMercatorBConversion(
++            latitude_projection_centre=1,
++            longitude_projection_centre=2,
++            angle_from_rectified_to_skew_grid=4,
++            azimuth_initial_line=3,
++            azimuth_projection_centre=3,
++        )
++
++
++def test_hotline_oblique_mercator_b_operation__duplicate_scale_factor():
++    with pytest.raises(ValueError):
++        HotineObliqueMercatorBConversion(
++            latitude_projection_centre=1,
++            longitude_projection_centre=2,
++            angle_from_rectified_to_skew_grid=4,
++            azimuth_projection_centre=3,
++            scale_factor_on_initial_line=0.5,
++            scale_factor_projection_centre=0.5,
++        )
++
++
+ def test_orthographic_operation__defaults():
+     aeop = OrthographicConversion()
+     assert aeop.name == "unknown"

@@ -11,6 +11,9 @@ source:
     - 0001-azimuthal-equidistant.patch
     - 0002-test-coordinate-operation-grids-alternative-grid-name.patch
     - 0003-test-datum-ensemble-allowing-new-members.patch
+    - 0004-fix-transformer-area-of-interest-tests.patch
+    - 0005-add-runtime-compiled-proj-versions.patch
+    - 0006-handle-changes-to-HotineObliqueMercatorBConversion.patch
 
 build:
   number: 10

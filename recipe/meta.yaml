@@ -1,4 +1,4 @@
-{% set version = "3.6.1" %}
+{% set version = "3.7.0" %}
 
 package:
   name: pyproj
@@ -6,18 +6,11 @@ package:
 
 source:
   url: https://pypi.io/packages/source/p/pyproj/pyproj-{{ version }}.tar.gz
-  sha256: 44aa7c704c2b7d8fb3d483bbf75af6cb2350d30a63b144279a09b75fead501bf
-  patches:
-    - 0001-azimuthal-equidistant.patch
-    - 0002-test-coordinate-operation-grids-alternative-grid-name.patch
-    - 0003-test-datum-ensemble-allowing-new-members.patch
-    - 0004-fix-transformer-area-of-interest-tests.patch
-    - 0005-add-runtime-compiled-proj-versions.patch
-    - 0006-handle-changes-to-HotineObliqueMercatorBConversion.patch
+  sha256: bf658f4aaf815d9d03c8121650b6f0b8067265c36e31bc6660b98ef144d81813
 
 build:
-  number: 10
-  skip: true  # [py<39]
+  number: 0
+  skip: true  # [py<310]
   entry_points:
     - pyproj=pyproj.__main__:main
 

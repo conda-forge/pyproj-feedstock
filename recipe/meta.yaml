@@ -8,7 +8,6 @@ source:
   url: https://pypi.io/packages/source/p/pyproj/pyproj-{{ version }}.tar.gz
   sha256: bf658f4aaf815d9d03c8121650b6f0b8067265c36e31bc6660b98ef144d81813
   patches:
-    - 0001-azimuthal-equidistant.patch
     - 0002-test-coordinate-operation-grids-alternative-grid-name.patch
     - 0003-test-datum-ensemble-allowing-new-members.patch
     - 0004-fix-transformer-area-of-interest-tests.patch
@@ -17,7 +16,6 @@ source:
 
 build:
   number: 0
-  skip: true  # [py<39]
   entry_points:
     - pyproj=pyproj.__main__:main
 

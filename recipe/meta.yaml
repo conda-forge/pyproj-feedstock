@@ -6,7 +6,7 @@ package:
 
 source:
   url: https://pypi.org/packages/source/p/pyproj/pyproj-{{ version }}.tar.gz
-  sha256: 60d72facd7b6b79853f19744779abcd3f804c4e0d4fa8815469db20c9f640a47
+  sha256: dcf8ecd1a83ef7fadeafe635e1e2dd146a20cd31419aa58fdadbff23a9b7f3ce
 
 build:
   number: 0

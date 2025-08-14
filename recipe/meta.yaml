@@ -61,6 +61,7 @@ about:
 
 extra:
   recipe-maintainers:
+    - djhoese
     - mingwandroid
     - ocefpaf
     - snowman2

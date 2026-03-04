@@ -1,0 +1,86 @@
+schema_version: 1
+
+context:
+  version: 3.7.2
+
+package:
+  name: pyproj
+  version: ${{ version }}
+
+source:
+  url: https://pypi.org/packages/source/p/pyproj/pyproj-${{ version }}.tar.gz
+  sha256: 39a0cf1ecc7e282d1d30f36594ebd55c9fae1fda8a2622cee5d100430628f88c
+  patches:
+    - 0001-update-tests-for-proj-9.7.patch
+
+build:
+  number: 3
+  skip: match(python, "<3.11")
+  python:
+    entry_points:
+      - pyproj=pyproj.__main__:main
+
+requirements:
+  build:
+    - if: build_platform != target_platform
+      then:
+        - python
+        - cross-python_${{ target_platform }}
+        - cython
+    - ${{ compiler('c') }}
+    - ${{ stdlib("c") }}
+  host:
+    - python
+    - pip
+    - cython
+    - proj
+    - setuptools
+  run:
+    - python
+    - proj
+    - certifi
+
+tests:
+  - python:
+      imports:
+        - pyproj
+      pip_check: true
+  - files:
+      source:
+        - test
+    requirements:
+      run:
+        - pytest
+        - shapely
+        - numpy
+    script:
+      - pyproj --verbose
+      - if: unix
+        then:
+          - export "PROJ_NETWORK=ON"
+          - export "PYPROJ_GLOBAL_CONTEXT=ON"
+      - if: win
+        then:
+          - set "PROJ_NETWORK=ON"
+          - set "PYPROJ_GLOBAL_CONTEXT=ON"
+      - if: ppc64le
+        then: projsync --file us_noaa_nadcon5_nad27_nad83_1986_conus.tif
+      - python -m pytest -v -s
+
+about:
+  license: MIT
+  license_file:
+    - LICENSE
+    - LICENSE_proj
+  summary: Python interface to PROJ library
+  homepage: https://github.com/pyproj4/pyproj
+
+extra:
+  recipe-maintainers:
+    - djhoese
+    - mingwandroid
+    - ocefpaf
+    - snowman2
+    - jorisvandenbossche
+    - xylar
+    - zklaus

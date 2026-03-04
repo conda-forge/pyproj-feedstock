@@ -12,6 +12,8 @@ source:
   sha256: 39a0cf1ecc7e282d1d30f36594ebd55c9fae1fda8a2622cee5d100430628f88c
   patches:
     - 0001-update-tests-for-proj-9.7.patch
+    - 0002-fix-tests-for-proj-9.8.patch
+    - 0003-fix-more-tests-for-proj-9.8.patch
 
 build:
   number: 4

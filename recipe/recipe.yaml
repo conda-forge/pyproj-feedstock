@@ -21,11 +21,10 @@ build:
 requirements:
   build:
     - if: build_platform != target_platform
-      then: python
-    - if: build_platform != target_platform
-      then: cross-python_${{ target_platform }}
-    - if: build_platform != target_platform
-      then: cython
+      then:
+        - python
+        - cross-python_${{ target_platform }}
+        - cython
     - ${{ compiler('c') }}
     - ${{ stdlib("c") }}
   host:
@@ -43,6 +42,7 @@ tests:
   - python:
       imports:
         - pyproj
+      pip_check: true
   - files:
       source:
         - test
@@ -54,13 +54,13 @@ tests:
     script:
       - pyproj --verbose
       - if: unix
-        then: export "PROJ_NETWORK=ON"
-      - if: unix
-        then: export "PYPROJ_GLOBAL_CONTEXT=ON"
+        then:
+          - export "PROJ_NETWORK=ON"
+          - export "PYPROJ_GLOBAL_CONTEXT=ON"
       - if: win
-        then: set "PROJ_NETWORK=ON"
-      - if: win
-        then: set "PYPROJ_GLOBAL_CONTEXT=ON"
+        then:
+          - set "PROJ_NETWORK=ON"
+          - set "PYPROJ_GLOBAL_CONTEXT=ON"
       - if: ppc64le
         then: projsync --file us_noaa_nadcon5_nad27_nad83_1986_conus.tif
       - python -m pytest -v -s

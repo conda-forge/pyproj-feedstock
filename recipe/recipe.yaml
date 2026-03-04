@@ -10,6 +10,8 @@ package:
 source:
   url: https://pypi.org/packages/source/p/pyproj/pyproj-${{ version }}.tar.gz
   sha256: 39a0cf1ecc7e282d1d30f36594ebd55c9fae1fda8a2622cee5d100430628f88c
+  patches:
+    - 0001-update-tests-for-proj-9.7.patch
 
 build:
   number: 3

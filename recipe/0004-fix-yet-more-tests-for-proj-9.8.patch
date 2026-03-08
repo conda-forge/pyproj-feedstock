@@ -1,0 +1,38 @@
+From 3da9188595355f7292c6a8b8ad870cfd172ab346 Mon Sep 17 00:00:00 2001
+From: Per Helge Aarnes <110827889+phaarnes@users.noreply.github.com>
+Date: Mon, 12 Jan 2026 21:37:04 +0100
+Subject: [PATCH 1/2] Fix tests and workflows (#5)
+
+update test (related to PROJ upgrade) and fix workflow
+---
+ .github/workflows/release.yaml | 13 ++++++++++---
+ test/test_transformer.py       |  6 +++++-
+ 2 files changed, 15 insertions(+), 4 deletions(-)
+
+diff --git a/test/test_transformer.py b/test/test_transformer.py
+index 94570e0ed..5f54a5492 100644
+--- a/test/test_transformer.py
++++ b/test/test_transformer.py
+@@ -977,7 +977,11 @@ def test_transformer_group__get_transform_crs():
+     if grids_available(
+         "nl_nsgi_nlgeo2018.tif", "nl_nsgi_rdtrans2018.tif", check_all=True
+     ):
+-        assert len(tg.transformers) == 2
++        if PROJ_GTE_980:
++            # Newer proj includes additional transformations
++            assert len(tg.transformers) == 3
++        else:
++            assert len(tg.transformers) == 2
+     elif PROJ_GTE_980:
+         # Newer proj includes additional transformations
+         assert len(tg.transformers) == 3
+
+From e81e5e545d972d75e7a8fea9230b325abae5bd40 Mon Sep 17 00:00:00 2001
+From: Per Helge Aarnes <110827889+phaarnes@users.noreply.github.com>
+Date: Tue, 13 Jan 2026 05:17:50 +0000
+Subject: [PATCH 2/2] optimize build process by detecting CPU cores for
+ parallel compilation
+
+---
+ ci/proj-compile-wheels.sh | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)

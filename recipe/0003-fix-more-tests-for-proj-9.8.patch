@@ -1,0 +1,23 @@
+From 1b094cda75f05252f771bf5cc0faa0bd41d9aa98 Mon Sep 17 00:00:00 2001
+From: Per Helge Aarnes <110827889+phaarnes@users.noreply.github.com>
+Date: Sun, 11 Jan 2026 19:59:35 +0000
+Subject: [PATCH] fix remaining test
+
+---
+ test/test_transformer.py | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/test/test_transformer.py b/test/test_transformer.py
+index 348ef254a..94570e0ed 100644
+--- a/test/test_transformer.py
++++ b/test/test_transformer.py
+@@ -978,6 +978,9 @@ def test_transformer_group__get_transform_crs():
+         "nl_nsgi_nlgeo2018.tif", "nl_nsgi_rdtrans2018.tif", check_all=True
+     ):
+         assert len(tg.transformers) == 2
++    elif PROJ_GTE_980:
++        # Newer proj includes additional transformations
++        assert len(tg.transformers) == 3
+     else:
+         assert len(tg.transformers) == 1
+ 

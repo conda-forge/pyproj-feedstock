@@ -1,0 +1,40 @@
+From 2310579bd3ac1887988b6ea8e93c0174b9112232 Mon Sep 17 00:00:00 2001
+From: Xylar Asay-Davis <xylarstorm@gmail.com>
+Date: Mon, 10 Aug 2026 10:27:37 +0200
+Subject: [PATCH] TST: fix tests for proj 9.8.1
+
+PROJ 9.8.1 reverted its bundled EPSG database from v12.049 back to
+v12.029, the version shipped with PROJ 9.7.1.  The test expectations
+guarded by PROJ_GTE_980 describe the v12.049 database, so they only
+hold for PROJ 9.8.0 itself and need an upper bound.
+---
+ test/conftest.py | 13 ++++++++++++-
+ 1 file changed, 12 insertions(+), 1 deletion(-)
+
+diff --git a/test/conftest.py b/test/conftest.py
+index 00a8537..64e5b4f 100644
+--- a/test/conftest.py
++++ b/test/conftest.py
+@@ -15,7 +15,18 @@ PROJ_LOOSE_VERSION = version.parse(pyproj.__proj_version__)
+ PROJ_GTE_941 = PROJ_LOOSE_VERSION >= version.parse("9.4.1")
+ PROJ_GTE_95 = PROJ_LOOSE_VERSION >= version.parse("9.5.0")
+ PROJ_GTE_971 = PROJ_LOOSE_VERSION >= version.parse("9.7.1")
+-PROJ_GTE_980 = PROJ_LOOSE_VERSION >= version.parse("9.8.0")
++# The expectations guarded by this flag are not really about PROJ 9.8.0 the
++# release, they are about the EPSG v12.049 database that PROJ 9.8.0 bundled.
++# PROJ 9.8.1 reverted its database to EPSG v12.029 -- the one shipped with
++# PROJ 9.7.1 -- because the ETRS89-XXX datum and CRS records added in v12.049
++# broke backwards compatibility.  So 9.8.1 and later behave like 9.7.1 again,
++# and the flag has to be bounded above.  See the 9.8.1 entry in
++# https://github.com/OSGeo/PROJ/blob/master/NEWS.md
++PROJ_EPSG_V12_049 = (
++    version.parse("9.8.0") <= PROJ_LOOSE_VERSION < version.parse("9.8.1")
++)
++# Kept under the original name so the call sites stay identical to upstream.
++PROJ_GTE_980 = PROJ_EPSG_V12_049
+ 
+ 
+ def unset_data_dir():
+-- 
+2.43.0
+

@@ -16,9 +16,10 @@ source:
     - 0003-fix-more-tests-for-proj-9.8.patch
     - 0004-fix-yet-more-tests-for-proj-9.8.patch
     - 0005-fix-still-more-tests-for-proj-9.8.patch
+    - 0006-fix-tests-for-proj-9.8.1.patch
 
 build:
-  number: 4
+  number: 5
   skip: match(python, "<3.11")
   python:
     entry_points:

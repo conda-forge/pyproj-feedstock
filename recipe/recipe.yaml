@@ -55,9 +55,12 @@ tests:
         - test
     requirements:
       run:
-        - pytest
-        - shapely
-        - numpy
+        # NumPy and Shapely are not yet available for Windows ARM64.
+        - if: not (win and arm64)
+          then:
+            - pytest
+            - shapely
+            - numpy
     script:
       - pyproj --verbose
       - if: unix
@@ -70,7 +73,8 @@ tests:
           - set "PYPROJ_GLOBAL_CONTEXT=ON"
       - if: ppc64le
         then: projsync --file us_noaa_nadcon5_nad27_nad83_1986_conus.tif
-      - python -m pytest -v -s
+      - if: not (win and arm64)
+        then: python -m pytest -v -s
 
 about:
   license: MIT

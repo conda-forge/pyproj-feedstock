@@ -1,7 +1,7 @@
 schema_version: 1
 
 context:
-  version: 3.7.2
+  version: "3.8.0"
 
 package:
   name: pyproj
@@ -9,18 +9,11 @@ package:
 
 source:
   url: https://pypi.org/packages/source/p/pyproj/pyproj-${{ version }}.tar.gz
-  sha256: 39a0cf1ecc7e282d1d30f36594ebd55c9fae1fda8a2622cee5d100430628f88c
-  patches:
-    - 0001-update-tests-for-proj-9.7.patch
-    - 0002-fix-tests-for-proj-9.8.patch
-    - 0003-fix-more-tests-for-proj-9.8.patch
-    - 0004-fix-yet-more-tests-for-proj-9.8.patch
-    - 0005-fix-still-more-tests-for-proj-9.8.patch
-    - 0006-fix-tests-for-proj-9.8.1.patch
+  sha256: efa59725bba68bf97fa808b61302df32934acdceb6a5c92a8dd0e71dc266a876
 
 build:
-  number: 5
-  skip: match(python, "<3.11")
+  number: 0
+  skip: match(python, "<3.12")
   python:
     entry_points:
       - pyproj=pyproj.__main__:main

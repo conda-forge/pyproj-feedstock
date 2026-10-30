@@ -4,7 +4,7 @@ import sys
 import pyproj
 from pyproj import Proj
 
-Proj(init="epsg:4269")
+Proj("EPSG:4269")
 
 
 # Test pyproj_datadir.

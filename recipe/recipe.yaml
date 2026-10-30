@@ -12,7 +12,7 @@ source:
   sha256: efa59725bba68bf97fa808b61302df32934acdceb6a5c92a8dd0e71dc266a876
 
 build:
-  number: 2
+  number: 3
   skip: match(python, "<3.12")
   python:
     entry_points:
@@ -46,6 +46,8 @@ tests:
   - files:
       source:
         - test
+      recipe:
+        - run_test.py
     requirements:
       run:
         # NumPy and Shapely are not yet available for Windows ARM64.
@@ -56,6 +58,7 @@ tests:
             - numpy
     script:
       - pyproj --verbose
+      - python run_test.py
       - if: unix
         then:
           - export "PROJ_NETWORK=ON"

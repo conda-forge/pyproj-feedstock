@@ -46,6 +46,8 @@ tests:
   - files:
       source:
         - test
+      recipe:
+        - run_test.py
     requirements:
       run:
         # NumPy and Shapely are not yet available for Windows ARM64.
@@ -56,6 +58,7 @@ tests:
             - numpy
     script:
       - pyproj --verbose
+      - python run_test.py
       - if: unix
         then:
           - export "PROJ_NETWORK=ON"
